@@ -28,6 +28,7 @@ Page({
   },
   //获取用户信息并且授权
   getUserInfo: function(e){
+    console.log(e);
     var userInfo = e.detail.userInfo;
     userInfo.spid = this.data.spid;
     wx.login({
@@ -42,7 +43,7 @@ Page({
               info: userInfo
             },
             success: function (res) {
-              app.globalData.uid = res.data.data.uid;
+              app.globalData.uid = 1;//res.data.data.uid;
               if (app.globalData.openPages != '' && app.globalData.openPages != undefined) {//跳转到指定页面
                 wx.navigateTo({
                   url: app.globalData.openPages
