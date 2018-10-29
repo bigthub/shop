@@ -16,15 +16,15 @@
 
 ## 本项目还在不断开发完善中,如有建议或问题请[在这里提出](https://gitee.com/ZhongBangKeJi/CRMEB/issues)
 
-###如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
+###  :fa-star: 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
 
-### [帮助文档](https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis)
+###  :tw-1f198: [帮助文档](https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis)
 
-### 公众号和小程序打通版 https://gitee.com/ZhongBangKeJi/CRMEB
+###  :tw-1f234: 公众号和小程序打通版 https://gitee.com/ZhongBangKeJi/CRMEB
 
-### 小程序版 https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram
+###   :tw-26a1:  小程序版 https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram
 
-##小程序页面展示
+##  :couple_with_heart: 小程序页面展示
 <table>
 <tr>
 <td><img src="https://images.gitee.com/uploads/images/2018/1029/092526_7d362835_892944.jpeg"/></td>
@@ -43,7 +43,7 @@
 </tr>
 </table>
 
-##  演示地址
+##   :tw-1f340: 演示地址:tw-1f340:
    演示站后台:[<a href='http://demo25.crmeb.net' target="_blank"> crmeb_v2.5 </a>]       
 <a href='http://demo25.crmeb.net' target="_blank">http://demo25.crmeb.net</a>
    账号：demo
@@ -52,8 +52,10 @@
 <table><tr><td><img src='https://images.gitee.com/uploads/images/2018/0828/182854_beba4aed_892944.png'/><br>公众号</td><td><img src='https://images.gitee.com/uploads/images/2018/0828/182909_cb2a5e64_892944.png'/><br>小程序</td></tr></table>
 </div>
 
-## 付费版
+# :tw-1f1ef-1f1f5: 付费版 :tw-1f1ef-1f1f5:   详情  :tw-1f680:  [<a href='https://s.click.taobao.com/W7hVkLw' target="_blank"> 进入淘宝 </a>]
 
+
+```
 淘宝超值版:
 
 CRMEB微信公众号v2.5版：除了以上功能还带砍价、拼团功能
@@ -62,17 +64,13 @@ CRMEB微信小程序v2.5版：除了以上功能还带砍价、拼团功能
 
 CRMEB微信公众号小程序打通v2.5版：除了以上功能还带砍价、拼团功能 需要申请微信开放平台
 
-CRMEB微信公众号v2.0版：除了以上功能还带拼团功能
-
-CRMEB微信小程序v2.0版：除了以上功能还带砍价、拼团功能
-
 还有定制开发服务，例如：预约系统、O2O、付费阅读、多店版、多商家版
 
-### 详情[<a href='https://s.click.taobao.com/W7hVkLw' target="_blank"> 进入淘宝 </a>]
-
 官网线下定制服务版：http://www.crmeb.com
+```
 
-## 用法
+
+##  :tw-1f1fe:  用法
 
    下载: 
 
@@ -82,12 +80,12 @@ Git clone https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram.git
     文档地址:https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis
 
 
-## 目录结构
+##  :tw-1f1f2: 目录结构
 
 目录结构[查看](https://gitee.com/ZhongBangKeJi/CRMEB/wikis/pages/preview?title=%E7%A8%8B%E5%BA%8F%E7%9B%AE%E5%BD%95&parent=)：
 
 
-##问题反馈
+##  :tw-1f1f6: 问题反馈
 
 在使用中有任何问题，请使用以下联系方式联系我们
 
@@ -95,7 +93,7 @@ QQ群: 116279623
 
 Gitee: https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/issues
 
-## 特别鸣谢
+##  :tw-1f1f9: 特别鸣谢
 感谢以下的项目,排名不分先后
 
 ThinkPHP：http://www.thinkphp.cn
