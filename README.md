@@ -71,9 +71,9 @@ CRMEB微信小程序v2.0版：除了以上功能还带砍价、拼团功能
    下载: 
 
 ```
-Git clone https://gitee.com/ZhongBangKeJi/CRMEB.git
+Git clone https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram.git
 ```
-    文档地址:https://gitee.com/ZhongBangKeJi/CRMEB/wikis
+    文档地址:https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis
 
 
 ## 目录结构
@@ -87,7 +87,7 @@ Git clone https://gitee.com/ZhongBangKeJi/CRMEB.git
 
 QQ群: 116279623
 
-Gitee: https://gitee.com/ZhongBangKeJi/CRMEB/issues
+Gitee: https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/issues
 
 ## 特别鸣谢
 感谢以下的项目,排名不分先后
