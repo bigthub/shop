@@ -18,6 +18,12 @@
 
 ###如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
 
+### [帮助文档](https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis)
+
+### 公众号和小程序打通版 https://gitee.com/ZhongBangKeJi/CRMEB
+
+### 小程序版 https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram
+
 ##小程序页面展示
 <table>
 <tr>
