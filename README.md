@@ -37,16 +37,16 @@
 </tr>
 </table>
 
-##  演示地址
-   演示站后台:[<a href='http://demo25.crmeb.net' target="_blank"> crmeb_v2.5 </a>]       
-<a href='http://demo25.crmeb.net' target="_blank">http://demo25.crmeb.net</a>
+##   :tw-1f340: 演示地址 :tw-1f340: 
+   演示站后台:[<a href='http://demo25.crmeb.net' target="_blank"> crmeb-WMP v2.5.2 </a>]       
+后台网址：<a href='http://demo25.crmeb.net' target="_blank">http://demo25.crmeb.net</a>
    账号：demo
    密码：crmeb.com
 <div align="center">
 <table><tr><td><img src='https://images.gitee.com/uploads/images/2018/0828/182854_beba4aed_892944.png'/><br>公众号</td><td><img src='https://images.gitee.com/uploads/images/2018/0828/182909_cb2a5e64_892944.png'/><br>小程序</td></tr></table>
 </div>
 
-## 付费版
+##  :tw-1f235: 付费版
 
 淘宝超值版:
 
@@ -55,10 +55,6 @@ CRMEB微信公众号v2.5版：除了以上功能还带砍价、拼团功能
 CRMEB微信小程序v2.5版：除了以上功能还带砍价、拼团功能
 
 CRMEB微信公众号小程序打通v2.5版：除了以上功能还带砍价、拼团功能 需要申请微信开放平台
-
-CRMEB微信公众号v2.0版：除了以上功能还带拼团功能
-
-CRMEB微信小程序v2.0版：除了以上功能还带砍价、拼团功能
 
 还有定制开发服务，例如：预约系统、O2O、付费阅读、多店版、多商家版
 
@@ -76,12 +72,8 @@ Git clone https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram.git
     文档地址:https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis
 
 
-## 目录结构
 
-目录结构[查看](https://gitee.com/ZhongBangKeJi/CRMEB/wikis/pages/preview?title=%E7%A8%8B%E5%BA%8F%E7%9B%AE%E5%BD%95&parent=)：
-
-
-##问题反馈
+## 问题反馈
 
 在使用中有任何问题，请使用以下联系方式联系我们
 
