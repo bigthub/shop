@@ -3,4 +3,5 @@
 .warrant .white .tip{font-size:30rpx;color:#8a8a8a;text-align:center;margin-top:44rpx;padding:0 30rpx;}
 .warrant .white .but{width:328rpx;height:80rpx;line-height:80rpx;font-size:30rpx;background-color:#19c4fc;color:#fff;border-radius:50rpx;margin-top:70rpx;}
 .warrant .white .but::after{border:none;}
+.warrant .white .but:active{background-color:#19A8FC;}
 .warrant .mask{position:fixed;top:0;right:0;left:0;bottom:0;background-color:rgba(0, 0, 0, 0.5);}

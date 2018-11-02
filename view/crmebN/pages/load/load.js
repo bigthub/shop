@@ -3,14 +3,12 @@ Page({
   data: {
     logo: '',
     name: '',
-    spid: 0,
     url: app.globalData.url,
   },
   onLoad: function (options) {
     var that = this;
     that.getEnterLogo();
     app.setBarColor();
-    if (options.scene) that.data.spid = options.scene;
   },
   getEnterLogo: function () {
     var that = this;
@@ -28,9 +26,8 @@ Page({
   },
   //获取用户信息并且授权
   getUserInfo: function(e){
-    console.log(e);
     var userInfo = e.detail.userInfo;
-    userInfo.spid = this.data.spid;
+    userInfo.spid = app.globalData.spid;
     wx.login({
       success: function (res) {
         if (res.code) {
@@ -43,7 +40,7 @@ Page({
               info: userInfo
             },
             success: function (res) {
-              app.globalData.uid = 1;//res.data.data.uid;
+              app.globalData.uid = res.data.data.uid;
               if (app.globalData.openPages != '' && app.globalData.openPages != undefined) {//跳转到指定页面
                 wx.navigateTo({
                   url: app.globalData.openPages
