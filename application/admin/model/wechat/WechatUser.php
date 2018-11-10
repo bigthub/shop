@@ -155,7 +155,7 @@ use service\SystemConfigService;
                 }
             }
         }
-        $model = $model->where('openid','NOT NULL');
+//        $model = $model->where('openid','NOT NULL');
         if($where['nickname'] !== '') $model = $model->where('nickname','LIKE',"%$where[nickname]%");
         if($where['data'] !== ''){
             list($startTime,$endTime) = explode(' - ',$where['data']);
