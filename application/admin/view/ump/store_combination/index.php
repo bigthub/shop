@@ -166,10 +166,12 @@
     function setTime() {
         setTimeout(function () {
             $.each($combinationId,function (index,item) {
-                $('.count-time-'+item).downCount({
-                    date: $('.count-time-'+item).attr('data-time'),
-                    offset: +8
-                });
+               if($('.count-time-'+item).attr('data-time')!=undefined){
+                    $('.count-time-'+item).downCount({
+                        date: $('.count-time-'+item).attr('data-time'),
+                        offset: +8
+                    });
+               }
             })
         },3000);
     }
@@ -196,7 +198,6 @@
         switch (event) {
             case 'delstor':
                 var url=layList.U({c:'ump.store_combination',a:'delete',q:{id:data.id}});
-                console.log(url);
                 $eb.$swal('delete',function(){
                     $eb.axios.get(url).then(function(res){
                         if(res.status == 200 && res.data.code == 200) {
@@ -241,29 +242,5 @@
             }).toggle();
         }
     }
-    $('.js-group-btn').on('click',function(){
-        $('.js-group-btn').css({zIndex:1});
-        $(this).css({zIndex:2});
-    });
-    $('.delstor').on('click',function(){
-        window.t = $(this);
-        var _this = $(this),url =_this.data('url');
-        $eb.$swal('delete',function(){
-            $eb.axios.get(url).then(function(res){
-                console.log(res);
-                if(res.status == 200 && res.data.code == 200) {
-                    $eb.$swal('success',res.data.msg);
-                    _this.parents('tr').remove();
-                }else
-                    return Promise.reject(res.data.msg || '删除失败')
-            }).catch(function(err){
-                $eb.$swal('error',err);
-            });
-        })
-    });
-    $(document).on('click',".open_image",function (e) {
-        var image = $(this).data('image');
-        $eb.openImage(image);
-    })
 </script>
 {/block}
