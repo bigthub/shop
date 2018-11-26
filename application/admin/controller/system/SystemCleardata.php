@@ -37,12 +37,13 @@ class SystemCleardata  extends AuthController
         SystemCleardata::ClearData('user_notice',1);
         SystemCleardata::ClearData('user_notice_see',1);
         SystemCleardata::ClearData('wechat_qrcode',1);
-        SystemCleardata::ClearData('wechat_message',1);
         SystemCleardata::ClearData('store_coupon_user',1);
         SystemCleardata::ClearData('store_coupon_issue_user',1);
         SystemCleardata::ClearData('store_bargain_user',1);
         SystemCleardata::ClearData('store_bargain_user_help',1);
         SystemCleardata::ClearData('store_product_reply',1);
+        SystemCleardata::ClearData('store_coupon_user',1);
+        SystemCleardata::ClearData('store_coupon_issue',1);
         $this->delDirAndFile('./public/uploads/store/comment');
         SystemCleardata::ClearData('store_product_relation',1);
         return Json::successful('清除数据成功!');
@@ -50,13 +51,22 @@ class SystemCleardata  extends AuthController
     //清除商城数据
     public function  storedata(){
         SystemCleardata::ClearData('store_coupon',1);
-        SystemCleardata::ClearData('store_coupon_issue',1);
         SystemCleardata::ClearData('store_bargain',1);
+        SystemCleardata::ClearData('store_bargain_user',1);
+        SystemCleardata::ClearData('store_bargain_user_help',1);
         SystemCleardata::ClearData('store_combination',1);
+        SystemCleardata::ClearData('store_combination_attr',1);
+        SystemCleardata::ClearData('store_combination_attr_result',1);
+        SystemCleardata::ClearData('store_combination_attr_value',1);
         SystemCleardata::ClearData('store_product_attr',1);
         SystemCleardata::ClearData('store_product_attr_result',1);
         SystemCleardata::ClearData('store_product_attr_value',1);
+        SystemCleardata::ClearData('store_product_relation',1);
         SystemCleardata::ClearData('store_seckill',1);
+        SystemCleardata::ClearData('store_seckill_attr',1);
+        SystemCleardata::ClearData('store_seckill_attr_result',1);
+        SystemCleardata::ClearData('store_seckill_attr_value',1);
+        SystemCleardata::ClearData('store_visit',1);
         SystemCleardata::ClearData('store_product',1);
         $this->delDirAndFile('./public/uploads/store/product');
 
@@ -72,55 +82,24 @@ class SystemCleardata  extends AuthController
     public function orderdata(){
         SystemCleardata::ClearData('store_order',1);
         SystemCleardata::ClearData('store_order_cart_info',1);
-        SystemCleardata::ClearData('store_order_copy',1);
         SystemCleardata::ClearData('store_order_status',1);
         SystemCleardata::ClearData('store_pink',1);
         SystemCleardata::ClearData('store_cart',1);
         return Json::successful('清除数据成功!');
     }
-    //清除客服数据
-    public function kefudata(){
-        SystemCleardata::ClearData('store_service',1);
-        $this->delDirAndFile('./public/uploads/store/service');
-        SystemCleardata::ClearData('store_service_log',1);
-        return Json::successful('清除数据成功!');
-    }
-    //修改用户默认密码
-    public function userdate(){
-       SystemCleardata::ClearData('user',1);
-        $headimgurl= WechatUser::Where('uid',1)->value('headimgurl');
-        $data['account']='crmeb';
-        $data['pwd']=md5(123456);
-        $data['avatar']=$headimgurl;
-        $data['add_time']=time();
-        $data['status']=1;
-        $data['level']=0;
-        $data['user_type']="wechat";
-        $data['is_promoter']=1;
-        User::create($data);
-        return Json::successful('清除数据成功!');
-    }
-    //清除微信管理数据
-    public function wechatdata(){
-        SystemCleardata::ClearData('wechat_media',1);
-        SystemCleardata::ClearData('wechat_reply',1);
-        SystemCleardata::ClearData('wechat_news_content',1);
-        SystemCleardata::ClearData('wechat_news',1);
-        SystemCleardata::ClearData('wechat_news_category',1);
-       $this->delDirAndFile('./public/uploads/wechat');
-        return Json::successful('清除数据成功!');
-    }
+
     //清除所有附件
     public function uploaddata(){
-        $this->delDirAndFile('./public/uploads');
+        SystemCleardata::ClearData('system_attachment_category',1);
+        SystemCleardata::ClearData('system_attachment',1);
+        $this->delDirAndFile('./public/uploads/');
         return Json::successful('清除上传文件成功!');
     }
     //清除微信用户
     public function  wechatuserdata(){
-        $data= WechatUser::get(1)->toArray();
+
         SystemCleardata::ClearData('wechat_user',1);
-        unset($data['uid']);
-        WechatUser::set($data);
+        SystemCleardata::ClearData('user',1);
         return Json::successful('清除数据成功!');
     }
     //清除内容分类

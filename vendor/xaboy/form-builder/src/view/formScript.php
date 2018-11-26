@@ -13,7 +13,7 @@
 
     window[name] =  function create(el, callback) {
         if (!el) el = document.body;
-        var $f = formCreate.create(getRule(), {
+        $f = formCreate.create(getRule(), {
             el: el,
             form:<?=json_encode($form->getConfig('form'))?>,
             row:<?=json_encode($form->getConfig('row'))?>,
@@ -48,6 +48,7 @@
                     success: function (res) {
                         if (res.code == 200) {
                             vm.$Message.success(res.msg);
+                            $f.submitStatus({loading: false});
                             formCreate.formSuccess && formCreate.formSuccess(res, $f, formData);
                             callback && callback(0, res, $f, formData);
                             //TODO 表单提交成功!

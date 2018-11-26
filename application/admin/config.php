@@ -22,6 +22,9 @@ return [
     'app_debug'              => false,
     // 应用Trace
     'app_trace'              => false,
+
+    'exception_handle' =>\basic\AdminException::class,
+    'empty_controller' =>'Index',
     // 视图输出字符串内容替换
     'view_replace_str'       => [
         '{__ADMIN_PATH}'   => PUBILC_PATH.'system/',//后台
