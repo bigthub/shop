@@ -14,8 +14,8 @@ use service\SystemConfigService;
 use service\UploadService;
 use service\UtilService;
 use think\Request;
-use behavior\wap\StoreProductBehavior;
-use service\WechatTemplateService;
+use behavior\routine\StoreProductBehavior;
+use service\RoutineTemplateService;
 use service\CacheService;
 use service\HookService;
 use think\Url;
@@ -1170,7 +1170,7 @@ class AuthApi extends AuthController{
                 if($params["to_uid"]) {
                     $head = '您有新的消息，请注意查收！';
                     $head .= $params["mer_id"] > 0 ? "\n商户名称：".Merchant::where('id',$params["mer_id"])->value('mer_name') : '';
-                    WechatTemplateService::sendTemplate(WechatUser::uidToOpenid($params["to_uid"]),WechatTemplateService::SERVICE_NOTICE,[
+                    RoutineTemplateService::sendTemplate(WechatUser::uidToOpenid($params["to_uid"]),RoutineTemplateService::SERVICE_NOTICE,[
                         'first'=>$head,
                         'keyword1'=>$now_user["nickname"],
                         'keyword2'=>"客服提醒",

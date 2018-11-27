@@ -14,7 +14,7 @@ use app\routine\model\user\WechatUser;
 use app\routine\model\user\UserAddress;
 use app\admin\model\order\StoreOrder as StoreOrderAdminModel;
 use service\SystemConfigService;
-use service\WechatTemplateService;
+use service\RoutineTemplateService;
 
 class StoreProductBehavior
 {
@@ -139,7 +139,7 @@ class StoreProductBehavior
     public static function storeProductOrderApplyRefundAfter($oid, $uid)
     {
         $order = StoreOrder::where('id',$oid)->find();
-        WechatTemplateService::sendAdminNoticeTemplate([
+        RoutineTemplateService::sendAdminNoticeTemplate([
             'first'=>"亲,您有一个订单申请退款 \n订单号:{$order['order_id']}",
             'keyword1'=>'申请退款',
             'keyword2'=>'待处理',

@@ -178,5 +178,5 @@ function createPoster($product = array()){
     $res = imagejpeg ($imageRes,$filePath,90); //保存到本地
     imagedestroy($imageRes);
     if(!$res) return false;
-    return $filePath;
+    return '/'.$filePath;
 }

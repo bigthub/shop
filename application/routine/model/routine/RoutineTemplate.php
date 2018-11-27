@@ -80,11 +80,12 @@ class RoutineTemplate{
         $data['keyword2']['value'] =  date('Y-m-d H:i:s',time());
         $data['keyword3']['value'] =  '已支付';
         $data['keyword4']['value'] =  $order['pay_price'];
+        $link = '/pages/orders-con/orders-con?order_id='.$orderId;
         if($order['pay_type'] == 'yue') $data['keyword5']['value'] =  '余额支付';
         else if($order['pay_type'] == 'weixin') $data['keyword5']['value'] =  '微信支付';
 //        else if($order['pay_type'] == 'offline') $data['keyword5']['value'] =  '线下支付';
         RoutineFormId::delFormIdOne($formId);
-        RoutineTemplateService::sendTemplate(WechatUser::getOpenId($order['uid']),RoutineTemplateService::setTemplateId(RoutineTemplateService::ORDER_PAY_SUCCESS),'',$data,$formId);
+        RoutineTemplateService::sendTemplate(WechatUser::getOpenId($order['uid']),RoutineTemplateService::ORDER_PAY_SUCCESS,$link,$data,$formId);
     }
     /**
      * 订单发货提醒
@@ -102,10 +103,11 @@ class RoutineTemplate{
             $data['keyword3']['value'] =  $order['delivery_id'];
             $data['keyword4']['value'] =  date('Y-m-d H:i:s',time());
             $data['keyword5']['value'] =  '您的商品已经发货请注意查收';
+            $link = '/pages/orders-con/orders-con?order_id='.$order['order_id'];
             $formId = RoutineFormId::getFormIdOne($order['uid']);
             if($formId){
                 RoutineFormId::delFormIdOne($formId);
-                RoutineTemplateService::sendTemplate(WechatUser::getOpenId($order['uid']),RoutineTemplateService::setTemplateId(RoutineTemplateService::ORDER_DELIVER_SUCCESS),'',$data,$formId);
+                RoutineTemplateService::sendTemplate(WechatUser::getOpenId($order['uid']),RoutineTemplateService::ORDER_DELIVER_SUCCESS,$link,$data,$formId);
             }
         }else if($postageData['delivery_type'] == 'express'){//发货
             $data['keyword1']['value'] =  $order['order_id'];
