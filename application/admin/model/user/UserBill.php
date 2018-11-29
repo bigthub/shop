@@ -166,7 +166,7 @@ class UserBill extends ModelBasic
     public static function getOneIntegralList($where){
         return self::setWhereList(
             $where,
-            ['deduction','system_add'],
+            ['deduction','system_add','gain'],
             ['title','number','balance','mark','FROM_UNIXTIME(add_time,"%Y-%m-%d") as add_time']
         );
     }

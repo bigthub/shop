@@ -640,7 +640,7 @@ class StoreOrder extends ModelBasic
     public static function getUserOrderList($uid,$status = '',$first = 0,$limit = 8)
     {
         $list = self::statusByWhere($status)->where('is_del',0)->where('uid',$uid)
-            ->field('seckill_id,bargain_id,combination_id,id,order_id,pay_price,total_num,total_price,pay_postage,total_postage,paid,status,refund_status,pay_type,coupon_price,deduction_price,pink_id,delivery_type')
+            ->field('seckill_id,bargain_id,combination_id,id,order_id,pay_price,total_num,total_price,pay_postage,total_postage,paid,status,refund_status,pay_type,coupon_price,deduction_price,pink_id,delivery_type,unique')
             ->order('add_time DESC')->limit($first,$limit)->select()->toArray();
         foreach ($list as $k=>$order){
             $list[$k] = self::tidyOrder($order,true);

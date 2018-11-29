@@ -218,6 +218,7 @@ class StoreSeckill extends AuthController
         if(!$product) return Json::fail('数据不存在!');
         $f = array();
         $f[] = Form::input('title','产品标题',$product->getData('title'));
+        $f[] = Form::hidden('product_id',$product->getData('product_id'));
         $f[] = Form::input('info','秒杀活动简介',$product->getData('info'))->type('textarea');
         $f[] = Form::input('unit_name','单位',$product->getData('unit_name'))->placeholder('个、位');
         $f[] = Form::dateTimeRange('section_time','活动时间',$product->getData('start_time'),$product->getData('stop_time'));
