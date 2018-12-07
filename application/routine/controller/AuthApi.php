@@ -14,8 +14,8 @@ use service\SystemConfigService;
 use service\UploadService;
 use service\UtilService;
 use think\Request;
-use behavior\routine\StoreProductBehavior;
-use service\RoutineTemplateService;
+use behavior\wap\StoreProductBehavior;
+use service\WechatTemplateService;
 use service\CacheService;
 use service\HookService;
 use think\Url;
@@ -210,8 +210,8 @@ class AuthApi extends AuthController{
            ['first',0],
            ['limit',0]
        ],$request);
-        $sId = $data['sid'];//二级
-        $cId = $data['cid'];//一级
+        $sId = $data['sid'];
+        $cId = $data['cid'];
         $keyword = $data['keyword'];
         $priceOrder = $data['priceOrder'];
         $salesOrder = $data['salesOrder'];
@@ -219,9 +219,9 @@ class AuthApi extends AuthController{
         $first = $data['first'];
         $limit = $data['limit'];
         $model = StoreProduct::validWhere();
-        if($sId){//如果二级存在
+        if($sId){
             $model->where('cate_id',$sId);
-        }elseif($cId){//如果一级存在
+        }elseif($cId){
             $sids = StoreCategory::pidBySidList($cId)?:[];
             if($sids){
                 $sidsr = [];
@@ -1170,7 +1170,7 @@ class AuthApi extends AuthController{
                 if($params["to_uid"]) {
                     $head = '您有新的消息，请注意查收！';
                     $head .= $params["mer_id"] > 0 ? "\n商户名称：".Merchant::where('id',$params["mer_id"])->value('mer_name') : '';
-                    RoutineTemplateService::sendTemplate(WechatUser::uidToOpenid($params["to_uid"]),RoutineTemplateService::SERVICE_NOTICE,[
+                    WechatTemplateService::sendTemplate(WechatUser::uidToOpenid($params["to_uid"]),WechatTemplateService::SERVICE_NOTICE,[
                         'first'=>$head,
                         'keyword1'=>$now_user["nickname"],
                         'keyword2'=>"客服提醒",
@@ -1441,7 +1441,9 @@ class AuthApi extends AuthController{
         if($domainTop != 'https') $domain = 'https:'.substr($domain,5,strlen($domain));
         if(file_exists($picname)) return JsonService::successful($domain.$picname);
         else{
-            file_put_contents($picname,RoutineCode::getCode($this->userInfo['uid']));
+            $res = RoutineCode::getCode($this->userInfo['uid'],$picname);
+            if($res) file_put_contents($picname,$res);
+            else return JsonService::fail('二维码生成失败');
         }
         return JsonService::successful($domain.$picname);
     }
@@ -1949,6 +1951,27 @@ class AuthApi extends AuthController{
         return JsonService::successful($content);
     }
 
+    /**
+     * 产品海报二维码
+     * @param int $id
+     */
+    public function product_promotion_code($id = 0){
+        if(!$id) return JsonService::fail('参数错误');
+        $count = StoreProduct::validWhere()->count();
+        if(!$count) return JsonService::fail('参数错误');
+        $path = 'public'.DS.'uploads'.DS.'codepath'.DS.'product';
+        $codePath = $path.DS.$id.'_'.$this->userInfo['uid'].'.jpg';
+        $domain = SystemConfigService::get('site_url').'/';
+        if(!file_exists($codePath)){
+            if(!is_dir($path)) mkdir($path,0777,true);
+            $res = RoutineCode::getCode($this->userInfo['uid'],$codePath,[],'/pages/product-con/index?id='.$id,'product_spread');
+            if($res) file_put_contents($codePath,$res);
+            else return JsonService::fail('二维码生成失败');
+        }
+        return JsonService::successful($domain.$codePath);
+    }
+
+
     public function poster($id = 0){
         if(!$id) return JsonService::fail('参数错误');
         $productInfo = StoreProduct::getValidProduct($id,'store_name,id,price,image,code_path');
@@ -1957,9 +1980,8 @@ class AuthApi extends AuthController{
             $path = 'public'.DS.'uploads'.DS.'codepath'.DS.'product';
             $codePath = $path.DS.$productInfo['id'].'.jpg';
             if(!file_exists($codePath)){
-                if(!is_dir($path))
-                    mkdir($path,0777,true);
-                file_put_contents($codePath,RoutineCode::getPages('pages/product-con/index?id='.$productInfo['id']));
+                if(!is_dir($path)) mkdir($path,0777,true);
+                $res = file_put_contents($codePath,RoutineCode::getPages('pages/product-con/index?id='.$productInfo['id']));
             }
             $res = StoreProduct::edit(['code_path'=>$codePath],$id);
             if($res) $productInfo['code_path'] = $codePath;

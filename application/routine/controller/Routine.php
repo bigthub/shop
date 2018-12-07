@@ -1,6 +1,6 @@
 <?php
 namespace app\routine\controller;
-use behavior\routine\PaymentBehavior;
+use behavior\wechat\PaymentBehavior;
 use service\HookService;
 use service\RoutineNotify;
 

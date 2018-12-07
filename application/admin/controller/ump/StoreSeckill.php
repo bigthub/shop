@@ -65,9 +65,6 @@ class StoreSeckill extends AuthController
         return Json::successlayui(['count'=>$seckillList['list']['total'],'data'=>$data]);
     }
 
-    public function get_seckill_id(){
-        return Json::successlayui(StoreSeckillModel::getSeckillIdAll());
-    }
     /**
      * 添加秒杀产品
      * @return form-builder
@@ -218,14 +215,13 @@ class StoreSeckill extends AuthController
         if(!$product) return Json::fail('数据不存在!');
         $f = array();
         $f[] = Form::input('title','产品标题',$product->getData('title'));
-        $f[] = Form::hidden('product_id',$product->getData('product_id'));
         $f[] = Form::input('info','秒杀活动简介',$product->getData('info'))->type('textarea');
         $f[] = Form::input('unit_name','单位',$product->getData('unit_name'))->placeholder('个、位');
         $f[] = Form::dateTimeRange('section_time','活动时间',$product->getData('start_time'),$product->getData('stop_time'));
         $f[] = Form::frameImageOne('image','产品主图片(305*305px)',Url::build('admin/widget.images/index',array('fodder'=>'image')),$product->getData('image'))->icon('image');
         $f[] = Form::frameImages('images','产品轮播图(640*640px)',Url::build('admin/widget.images/index',array('fodder'=>'images')),json_decode($product->getData('images')))->maxLength(5)->icon('images');
         $f[] = Form::number('price','秒杀价',$product->getData('price'))->min(0)->col(12);
-        $f[] = Form::number('ot_price','原价',$product->getData('ot_price'))->min(0)->col(12);
+        $f[] = Form::number('ot_price','原价',$product->getData('price'))->min(0)->col(12);
         $f[] = Form::number('cost','成本价',$product->getData('cost'))->min(0)->col(12);
         $f[] = Form::number('stock','库存',$product->getData('stock'))->min(0)->precision(0)->col(12);
         $f[] = Form::number('sales','销量',$product->getData('sales'))->min(0)->precision(0)->col(12);

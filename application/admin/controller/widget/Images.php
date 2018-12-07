@@ -44,6 +44,7 @@ class Images extends AuthController
     public function upload()
     {
         $pid = input('pid')!= NULL ?input('pid'):session('pid');
+
         $res = Upload::image('file','attach'.DS.date('Y').DS.date('m').DS.date('d'));
         $thumbPath = Upload::thumb($res->dir);
         //产品图片上传记录
@@ -61,7 +62,7 @@ class Images extends AuthController
 //            "type" => $fileInfo['type'],
 //            "state" => "SUCCESS"
             'code' =>200,
-            'msg'  =>'上传成功',
+            'msg'  =>'SUCCESS',
             'src'  =>$res->dir
         );
         echo json_encode($info);

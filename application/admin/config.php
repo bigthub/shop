@@ -19,7 +19,7 @@ return [
         // 是否自动开启 SESSION
         'auto_start'     => true,
     ],
-    'app_debug'              => true,
+    'app_debug'              => false,
     // 应用Trace
     'app_trace'              => false,
 

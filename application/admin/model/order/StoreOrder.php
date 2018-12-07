@@ -14,7 +14,7 @@ use app\admin\model\store\StoreProduct;
 use service\PHPExcelService;
 use traits\ModelTrait;
 use basic\ModelBasic;
-use service\RoutineTemplateService;
+use service\WechatTemplateService;
 use think\Url;
 use think\Db;
 /**
@@ -116,8 +116,10 @@ class StoreOrder extends ModelBasic
             }else if($item['paid']==1 && $item['status']==1 && $item['refund_status']==0){
                 $item['status_name']='待收货';
             }else if($item['paid']==1 && $item['status']==2 && $item['refund_status']==0){
-                $item['status_name']='待评价';
+                $item['status_name']='已收货';
             }else if($item['paid']==1 && $item['status']==3 && $item['refund_status']==0){
+                $item['status_name']='待评价';
+            }else if($item['paid']==1 && $item['status']==4 && $item['refund_status']==0){
                 $item['status_name']='已完成';
             }else if($item['paid']==1 && $item['refund_status']==1){
                 $item['status_name']=<<<HTML
@@ -333,7 +335,7 @@ HTML;
     public static function refundTemplate($data,$oid)
     {
         $order = self::where('id',$oid)->find();
-        RoutineTemplateService::sendTemplate(WechatUser::uidToOpenid($order['uid']),RoutineTemplateService::ORDER_REFUND_STATUS, [
+        WechatTemplateService::sendTemplate(WechatUser::uidToOpenid($order['uid']),WechatTemplateService::ORDER_REFUND_STATUS, [
             'first'=>'亲，您购买的商品已退款,本次退款'.$data['refund_price'].'金额',
             'keyword1'=>$order['order_id'],
             'keyword2'=>$order['pay_price'],
