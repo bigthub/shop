@@ -42,8 +42,6 @@ class SystemCleardata  extends AuthController
         SystemCleardata::ClearData('store_bargain_user',1);
         SystemCleardata::ClearData('store_bargain_user_help',1);
         SystemCleardata::ClearData('store_product_reply',1);
-        SystemCleardata::ClearData('store_coupon_user',1);
-        SystemCleardata::ClearData('store_coupon_issue',1);
         $this->delDirAndFile('./public/uploads/store/comment');
         SystemCleardata::ClearData('store_product_relation',1);
         return Json::successful('清除数据成功!');
@@ -51,22 +49,13 @@ class SystemCleardata  extends AuthController
     //清除商城数据
     public function  storedata(){
         SystemCleardata::ClearData('store_coupon',1);
+        SystemCleardata::ClearData('store_coupon_issue',1);
         SystemCleardata::ClearData('store_bargain',1);
-        SystemCleardata::ClearData('store_bargain_user',1);
-        SystemCleardata::ClearData('store_bargain_user_help',1);
         SystemCleardata::ClearData('store_combination',1);
-        SystemCleardata::ClearData('store_combination_attr',1);
-        SystemCleardata::ClearData('store_combination_attr_result',1);
-        SystemCleardata::ClearData('store_combination_attr_value',1);
         SystemCleardata::ClearData('store_product_attr',1);
         SystemCleardata::ClearData('store_product_attr_result',1);
         SystemCleardata::ClearData('store_product_attr_value',1);
-        SystemCleardata::ClearData('store_product_relation',1);
         SystemCleardata::ClearData('store_seckill',1);
-        SystemCleardata::ClearData('store_seckill_attr',1);
-        SystemCleardata::ClearData('store_seckill_attr_result',1);
-        SystemCleardata::ClearData('store_seckill_attr_value',1);
-        SystemCleardata::ClearData('store_visit',1);
         SystemCleardata::ClearData('store_product',1);
         $this->delDirAndFile('./public/uploads/store/product');
 
@@ -90,14 +79,11 @@ class SystemCleardata  extends AuthController
 
     //清除所有附件
     public function uploaddata(){
-        SystemCleardata::ClearData('system_attachment_category',1);
-        SystemCleardata::ClearData('system_attachment',1);
-        $this->delDirAndFile('./public/uploads/');
+        $this->delDirAndFile('./public/uploads');
         return Json::successful('清除上传文件成功!');
     }
     //清除微信用户
     public function  wechatuserdata(){
-
         SystemCleardata::ClearData('wechat_user',1);
         SystemCleardata::ClearData('user',1);
         return Json::successful('清除数据成功!');
@@ -120,7 +106,7 @@ class SystemCleardata  extends AuthController
     }
     //递归删除文件
     function delDirAndFile($dirName,$subdir=true){
-        if ($handle = opendir("$dirName")){
+        if ($handle = @opendir("$dirName")){
             while(false !== ($item = readdir($handle))){
                 if($item != "." && $item != ".."){
                     if(is_dir("$dirName/$item"))
