@@ -16,7 +16,7 @@ App({
     openPages:'',
     spid:0,
     urlImages: '',
-    url: 'https://xcx.crmeb.net'
+    url: 'https://mp.miaogj.com.cn'
   },
   getRoutineStyle:function(){
     var that = this;
