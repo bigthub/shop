@@ -11,6 +11,7 @@ use think\Request;
 use think\Response;
 use think\Session;
 use think\Url;
+use think\captcha\Captcha;
 
 /**
  * 登录验证控制器
@@ -54,7 +55,7 @@ class Login extends SystemBasic
     public function captcha()
     {
         ob_clean();
-        $captcha = new \think\captcha\Captcha([
+        $captcha = new Captcha([
             'codeSet'=>'0123456789',
             'length'=>4,
             'fontSize'=>30
