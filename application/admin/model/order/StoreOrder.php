@@ -10,11 +10,15 @@ namespace app\admin\model\order;
 
 use app\admin\model\wechat\WechatUser;
 use app\admin\model\ump\StorePink;
+use app\admin\model\order\StoreOrderCartInfo;
 use app\admin\model\store\StoreProduct;
+use app\admin\model\routine\RoutineFormId;
+use app\admin\model\routine\RoutineTemplate;
 use service\PHPExcelService;
 use traits\ModelTrait;
 use basic\ModelBasic;
 use service\WechatTemplateService;
+use service\RoutineTemplateService;
 use think\Url;
 use think\Db;
 /**
@@ -47,13 +51,19 @@ class StoreOrder extends ModelBasic
         }else{
             $model = $model->order('a.id desc');
         }
-        $data=($data=$model->page((int)$where['page'],(int)$where['limit'])->select()) && count($data) ? $data->toArray() : [];
+        if(isset($where['excel']) && $where['excel']==1){
+            $data=($data=$model->select()) && count($data) ? $data->toArray() : [];
+        }else{
+            $data=($data=$model->page((int)$where['page'],(int)$where['limit'])->select()) && count($data) ? $data->toArray() : [];
+        }
+//        $data=($data=$model->page((int)$where['page'],(int)$where['limit'])->select()) && count($data) ? $data->toArray() : [];
         foreach ($data as &$item){
             $_info = Db::name('store_order_cart_info')->where('oid',$item['id'])->field('cart_info')->select();
             foreach ($_info as $k=>$v){
                 $_info[$k]['cart_info'] = json_decode($v['cart_info'],true);
             }
             $item['_info'] = $_info;
+            $item['add_time'] = date('Y-m-d H:i:s',$item['add_time']);
             if($item['pink_id'] && $item['combination_id']){
                 $pinkStatus = StorePink::where('order_id_key',$item['id'])->value('status');
                 switch ($pinkStatus){
@@ -116,10 +126,8 @@ class StoreOrder extends ModelBasic
             }else if($item['paid']==1 && $item['status']==1 && $item['refund_status']==0){
                 $item['status_name']='待收货';
             }else if($item['paid']==1 && $item['status']==2 && $item['refund_status']==0){
-                $item['status_name']='已收货';
-            }else if($item['paid']==1 && $item['status']==3 && $item['refund_status']==0){
                 $item['status_name']='待评价';
-            }else if($item['paid']==1 && $item['status']==4 && $item['refund_status']==0){
+            }else if($item['paid']==1 && $item['status']==3 && $item['refund_status']==0){
                 $item['status_name']='已完成';
             }else if($item['paid']==1 && $item['refund_status']==1){
                 $item['status_name']=<<<HTML
@@ -461,6 +469,7 @@ HTML;
      * @return array
      */
     public static function getOrderPrice($where){
+        $where['is_del'] = 0;//删除订单不统计
         $model = new self;
         $price = array();
         $price['pay_price'] = 0;//支付金额
@@ -474,7 +483,7 @@ HTML;
         $price['deduction_price'] = 0;//抵扣金额
         $price['total_num'] = 0; //商品总数
         $model = self::getOrderWhere($where,$model);
-        $list = $model->select()->toArray();
+        $list = $model->where('is_del',0)->select()->toArray();
         foreach ($list as $v){
             $price['total_num'] = bcadd($price['total_num'],$v['total_num'],0);
             $price['pay_price'] = bcadd($price['pay_price'],$v['pay_price'],2);
@@ -872,30 +881,84 @@ HTML;
             ]
         ];
     }
-    /*
-     * 退款列表
-     * $where array
-     * return array
+
+    /**微信 订单发货
+     * @param $oid
+     * @param array $postageData
      */
-//    public static function getRefundList($where){
-//        $refundlist=self::setEchatWhere($where)->field([
-//            'order_id','total_price','coupon_price','deduction_price',
-//            'use_integral','FROM_UNIXTIME(add_time,"%Y-%m-%d") as add_time','FROM_UNIXTIME(pay_time,"%Y-%m-%d") as pay_time','combination_id',
-//            'seckill_id','bargain_id','cost','status','cart_id','pay_price','refund_status'
-//        ])->page((int)$where['page'],(int)$where['limit'])->select();
-//        count($refundlist) && $refundlist=$refundlist->toArray();
-//        foreach($refundlist as &$item){
-//            $item['product']=StoreProduct::where('id','in',function ($quers) use($item){
-//                $quers->name('store_cart')->where('id','in',json_decode($item['cart_id'],true))->field('product_id');
-//            })->field(['store_name','cost','price','image'])->select()->toArray();
-//            if($item['refund_status']==1) {
-//                $item['_refund'] = '申请退款中';
-//            }elseif ($item['refund_status']==2){
-//                $item['_refund'] = '退款成功';
-//            }
-//        }
-//        return $refundlist;
-//    }
+    public static function orderPostageAfter($oid,$postageData = [])
+    {
+        $order = self::where('id',$oid)->find();
+        $openid = WechatUser::uidToOpenid($order['uid']);
+        $url = Url::build('wap/My/order',['uni'=>$order['order_id']],true,true);
+        $group = [
+            'first'=>'亲,您的订单已发货,请注意查收',
+            'remark'=>'点击查看订单详情'
+        ];
+        if($postageData['delivery_type'] == 'send'){//送货
+            $goodsName = StoreOrderCartInfo::getProductNameList($order['id']);
+            $group = array_merge($group,[
+                'keyword1'=>$goodsName,
+                'keyword2'=>$order['pay_type'] == 'offline' ? '线下支付' : date('Y/m/d H:i',$order['pay_time']),
+                'keyword3'=>$order['user_address'],
+                'keyword4'=>$postageData['delivery_name'],
+                'keyword5'=>$postageData['delivery_id']
+            ]);
+            WechatTemplateService::sendTemplate($openid,WechatTemplateService::ORDER_DELIVER_SUCCESS,$group,$url);
+
+        }else if($postageData['delivery_type'] == 'express'){//发货
+            $group = array_merge($group,[
+                'keyword1'=>$order['order_id'],
+                'keyword2'=>$postageData['delivery_name'],
+                'keyword3'=>$postageData['delivery_id']
+            ]);
+            WechatTemplateService::sendTemplate($openid,WechatTemplateService::ORDER_POSTAGE_SUCCESS,$group,$url);
+        }
+    }
+    /**
+     * 小程序 订单发货提醒
+     * @param int $oid
+     * @param array $postageData
+     * @return bool
+     */
+    public static function sendOrderGoods($oid = 0,$postageData=array()){
+        if(!$oid || !$postageData) return true;
+        $order = self::where('id',$oid)->find();
+        $routine_openid = WechatUser::uidToRoutineOpenid($order['uid']);
+        if(!$routine_openid) return true;
+        if($postageData['delivery_type'] == 'send'){//送货
+            $data['keyword1']['value'] =  $order['order_id'];
+            $data['keyword2']['value'] =  $order['delivery_name'];
+            $data['keyword3']['value'] =  $order['delivery_id'];
+            $data['keyword4']['value'] =  date('Y-m-d H:i:s',time());
+            $data['keyword5']['value'] =  '您的商品已经发货请注意查收';
+            $formId = RoutineFormId::getFormIdOne($order['uid']);
+            if($formId){
+                RoutineFormId::delFormIdOne($formId);
+                RoutineTemplateService::sendTemplate($routine_openid,
+                    RoutineTemplateService::setTemplateId(RoutineTemplateService::ORDER_DELIVER_SUCCESS),
+                    '',
+                    $data,
+                    $formId);
+            }
+        }else if($postageData['delivery_type'] == 'express'){//发货
+            $data['keyword1']['value'] =  $order['order_id'];
+            $data['keyword2']['value'] =  $order['delivery_name'];
+            $data['keyword3']['value'] =  $order['delivery_id'];
+            $data['keyword4']['value'] =  date('Y-m-d H:i:s',time());
+            $data['keyword5']['value'] =  '您的商品已经发货请注意查收';
+            $formId = RoutineFormId::getFormIdOne($order['uid']);
+            if($formId){
+                RoutineFormId::delFormIdOne($formId);
+                RoutineTemplateService::sendTemplate($routine_openid,
+                    RoutineTemplateService::setTemplateId(RoutineTemplateService::ORDER_POSTAGE_SUCCESS),
+                    '',
+                    $data,
+                    $formId);
+            }
+        }
+    }
+
 
     /**
      * 获取订单总数
@@ -906,4 +969,21 @@ HTML;
           if(!$uid) return 0;
           return self::where('uid',$uid)->where('paid',1)->where('refund_status',0)->where('status',2)->count();
       }
+    /**
+     * 获取已支付的订单
+     * @param int $is_promoter
+     * @return int|string
+     */
+    public static function getOrderPayCount($is_promoter = 0){
+        return self::where('o.paid',1)->alias('o')->join('User u','u.uid=o.uid')->where('u.is_promoter',$is_promoter)->count();
+    }
+
+    /**
+     * 获取最后一个月已支付的订单
+     * @param int $is_promoter
+     * @return int|string
+     */
+    public static function getOrderPayMonthCount($is_promoter = 0){
+        return self::where('o.paid',1)->alias('o')->whereTime('o.pay_time','last month')->join('User u','u.uid=o.uid')->where('u.is_promoter',$is_promoter)->count();
+    }
 }

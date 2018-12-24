@@ -21,12 +21,12 @@ use app\routine\model\user\UserBill;
 use app\routine\model\user\WechatUser;
 use basic\ModelBasic;
 use behavior\routine\StoreProductBehavior;
-use behavior\wechat\PaymentBehavior;
+use behavior\routine\PaymentBehavior;
 use service\HookService;
 use service\RoutineService;
 use service\SystemConfigService;
 use service\WechatService;
-use service\WechatTemplateService;
+use service\RoutineTemplateService;
 use think\Cache;
 use think\Url;
 use traits\ModelTrait;
@@ -414,20 +414,20 @@ class StoreOrder extends ModelBasic
     public static function createOrderTemplate($order)
     {
         $goodsName = StoreOrderCartInfo::getProductNameList($order['id']);
-        WechatTemplateService::sendTemplate(WechatUser::getOpenId($order['uid']),WechatTemplateService::ORDER_CREATE, [
+        RoutineTemplateService::sendTemplate(WechatUser::getOpenId($order['uid']),WechatTemplateService::ORDER_CREATE, [
             'first'=>'亲，您购买的商品已支付成功',
             'keyword1'=>date('Y/m/d H:i',$order['add_time']),
             'keyword2'=>implode(',',$goodsName),
             'keyword3'=>$order['order_id'],
             'remark'=>'点击查看订单详情'
         ],Url::build('/wap/My/order',['uni'=>$order['order_id']],true,true));
-        WechatTemplateService::sendAdminNoticeTemplate([
-            'first'=>"亲,您有一个新订单 \n订单号:{$order['order_id']}",
-            'keyword1'=>'新订单',
-            'keyword2'=>'线下支付',
-            'keyword3'=>date('Y/m/d H:i',time()),
-            'remark'=>'请及时处理'
-        ]);
+//        RoutineTemplateService::sendAdminNoticeTemplate([
+//            'first'=>"亲,您有一个新订单 \n订单号:{$order['order_id']}",
+//            'keyword1'=>'新订单',
+//            'keyword2'=>'线下支付',
+//            'keyword3'=>date('Y/m/d H:i',time()),
+//            'remark'=>'请及时处理'
+//        ]);
     }
 
     public static function getUserOrderDetail($uid,$key)
@@ -459,7 +459,7 @@ class StoreOrder extends ModelBasic
                 'keyword4'=>$postageData['delivery_name'],
                 'keyword5'=>$postageData['delivery_id']
             ]);
-            WechatTemplateService::sendTemplate($openid,WechatTemplateService::ORDER_DELIVER_SUCCESS,$group,$url);
+            RoutineTemplateService::sendTemplate($openid,RoutineTemplateService::ORDER_DELIVER_SUCCESS,$group,$url);
 
         }else if($postageData['delivery_type'] == 'express'){//发货
             $group = array_merge($group,[
@@ -467,21 +467,22 @@ class StoreOrder extends ModelBasic
                 'keyword2'=>$postageData['delivery_name'],
                 'keyword3'=>$postageData['delivery_id']
             ]);
-            WechatTemplateService::sendTemplate($openid,WechatTemplateService::ORDER_POSTAGE_SUCCESS,$group,$url);
+            RoutineTemplateService::sendTemplate($openid,RoutineTemplateService::ORDER_POSTAGE_SUCCESS,$group,$url);
         }
     }
 
     public static function orderTakeAfter($order)
     {
         $openid = WechatUser::getOpenId($order['uid']);
-        WechatTemplateService::sendTemplate($openid,WechatTemplateService::ORDER_TAKE_SUCCESS,[
-            'first'=>'亲，您的订单以成功签收，快去评价一下吧',
-            'keyword1'=>$order['order_id'],
-            'keyword2'=>'已收货',
-            'keyword3'=>date('Y/m/d H:i',time()),
-            'keyword4'=>implode(',',StoreOrderCartInfo::getProductNameList($order['id'])),
-            'remark'=>'点击查看订单详情'
-        ],Url::build('My/order',['uni'=>$order['order_id']],true,true));
+//        //订单确认收货模版消息
+//        RoutineTemplateService::sendTemplate($openid,RoutineTemplateService::ORDER_TAKE_SUCCESS,[
+//            'first'=>'亲，您的订单以成功签收，快去评价一下吧',
+//            'keyword1'=>$order['order_id'],
+//            'keyword2'=>'已收货',
+//            'keyword3'=>date('Y/m/d H:i',time()),
+//            'keyword4'=>implode(',',StoreOrderCartInfo::getProductNameList($order['id'])),
+//            'remark'=>'点击查看订单详情'
+//        ],Url::build('My/order',['uni'=>$order['order_id']],true,true));
     }
 
     /**
@@ -639,7 +640,7 @@ class StoreOrder extends ModelBasic
     public static function getUserOrderList($uid,$status = '',$first = 0,$limit = 8)
     {
         $list = self::statusByWhere($status)->where('is_del',0)->where('uid',$uid)
-            ->field('seckill_id,bargain_id,combination_id,id,order_id,pay_price,total_num,total_price,pay_postage,total_postage,paid,status,refund_status,pay_type,coupon_price,deduction_price,pink_id,delivery_type')
+            ->field('seckill_id,bargain_id,combination_id,id,order_id,pay_price,total_num,total_price,pay_postage,total_postage,paid,status,refund_status,pay_type,coupon_price,deduction_price,pink_id,delivery_type,unique')
             ->order('add_time DESC')->limit($first,$limit)->select()->toArray();
         foreach ($list as $k=>$order){
             $list[$k] = self::tidyOrder($order,true);
