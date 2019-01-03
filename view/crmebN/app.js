@@ -16,7 +16,7 @@ App({
     openPages:'',
     spid:0,
     urlImages: '',
-    url: 'https://mp.miaogj.com.cn'
+    url: 'https://maya.shandaershoushichang.cn'
   },
   getRoutineStyle:function(){
     var that = this;

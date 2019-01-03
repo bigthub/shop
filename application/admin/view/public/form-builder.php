@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/iview@2.14.3/dist/styles/iview.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/iview@2.14.3/dist/iview.min.js"></script>
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/form-create/district/province_city.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/form-create@1.5.1/dist/form-create.min.js"></script>
     <style>
         /*弹框样式修改*/
@@ -27,6 +28,7 @@
         //提交成功后按钮恢复
         $r.btn.finish();
     };
+
     (function () {
         var create = (function () {
             var getRule = function () {

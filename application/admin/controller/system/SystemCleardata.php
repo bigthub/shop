@@ -37,6 +37,7 @@ class SystemCleardata  extends AuthController
         SystemCleardata::ClearData('user_notice',1);
         SystemCleardata::ClearData('user_notice_see',1);
         SystemCleardata::ClearData('wechat_qrcode',1);
+        SystemCleardata::ClearData('wechat_message',1);
         SystemCleardata::ClearData('store_coupon_user',1);
         SystemCleardata::ClearData('store_coupon_issue_user',1);
         SystemCleardata::ClearData('store_bargain_user',1);
@@ -71,12 +72,27 @@ class SystemCleardata  extends AuthController
     public function orderdata(){
         SystemCleardata::ClearData('store_order',1);
         SystemCleardata::ClearData('store_order_cart_info',1);
+        SystemCleardata::ClearData('store_order_copy',1);
         SystemCleardata::ClearData('store_order_status',1);
         SystemCleardata::ClearData('store_pink',1);
         SystemCleardata::ClearData('store_cart',1);
         return Json::successful('清除数据成功!');
     }
+    //清除客服数据
+    public function kefudata(){
+        SystemCleardata::ClearData('store_service',1);
+        $this->delDirAndFile('./public/uploads/store/service');
+        SystemCleardata::ClearData('store_service_log',1);
+        return Json::successful('清除数据成功!');
+    }
 
+    //清除微信管理数据
+    public function wechatdata(){
+        SystemCleardata::ClearData('wechat_media',1);
+        SystemCleardata::ClearData('wechat_reply',1);
+       $this->delDirAndFile('./public/uploads/wechat');
+        return Json::successful('清除数据成功!');
+    }
     //清除所有附件
     public function uploaddata(){
         $this->delDirAndFile('./public/uploads');
@@ -91,6 +107,8 @@ class SystemCleardata  extends AuthController
     //清除内容分类
     public function articledata(){
         SystemCleardata::ClearData('article_category',1);
+        SystemCleardata::ClearData('article',1);
+        SystemCleardata::ClearData('article_content',1);
         $this->delDirAndFile('./public/uploads/article/');
         return Json::successful('清除数据成功!');
     }
@@ -98,9 +116,9 @@ class SystemCleardata  extends AuthController
     public  function  ClearData($table_name,$status){
         $table_name = Config::get('database')['prefix'].$table_name;
         if($status){
-            db::query('TRUNCATE TABLE '.$table_name);
+            @db::query('TRUNCATE TABLE '.$table_name);
         }else{
-            db::query('DELETE FROM'.$table_name);
+            @db::query('DELETE FROM'.$table_name);
         }
 
     }
