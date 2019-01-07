@@ -14,7 +14,7 @@ use service\SystemConfigService;
 use service\UploadService;
 use service\UtilService;
 use think\Request;
-use behavior\wap\StoreProductBehavior;
+use behavior\routine\StoreProductBehavior;
 use service\WechatTemplateService;
 use service\CacheService;
 use service\HookService;
@@ -54,14 +54,6 @@ use app\routine\model\article\Article as ArticleModel;
  * Class AuthApi
  * @package app\routine\controller
  *
- *
- *
- *
- * https://qipei.9gt.net/routine/auth_api/index  首页
- * https://qipei.9gt.net/routine/auth_api/store  分类页面
- * https://qipei.9gt.net/routine/auth_api/get_pid_cate  一级分类
- * https://qipei.9gt.net/routine/auth_api/get_id_cate  二级分类
- * https://qipei.9gt.net/routine/auth_api/get_product_list  分类页面产品
  */
 class AuthApi extends AuthController{
 
@@ -99,14 +91,18 @@ class AuthApi extends AuthController{
         $menus = GroupDataService::getData('routine_home_menus')?:[];//banner图
         $lovely = GroupDataService::getData('routine_lovely')?:[];//猜你喜欢图
         $best = StoreProduct::getBestProduct('id,image,store_name,cate_id,price,unit_name,sort',8);//精品推荐
-        $new = StoreProduct::getNewProduct('id,image,store_name,cate_id,price,unit_name,sort',3);//今日上新
-        $hot = StoreProduct::getHotProduct('id,image,store_name,cate_id,price,unit_name,sort',6);//猜你喜欢
+        $new = StoreProduct::getNewProduct('id,image,store_name,cate_id,price,unit_name,sort',3);//首发
+        $hot = StoreProduct::getHotProduct('id,image,store_name,cate_id,price,unit_name,sort',8);//热卖
+        $benefit = StoreProduct::getBenefitProduct('id,image,store_name,cate_id,price,ot_price,stock,unit_name,sort',3);//促销
+        $like = StoreProduct::getHotProduct('id,image,store_name,cate_id,price,unit_name,sort',6);//猜你喜欢
         $data['banner'] = $banner;
         $data['lovely'] = $lovely[0];
         $data['menus'] = $menus;
         $data['best'] = $best;
         $data['new'] = $new;
         $data['hot'] = $hot;
+        $data['benefit'] = $benefit;
+        $data['like'] = $like;
         return JsonService::successful($data);
     }
 
