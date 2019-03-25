@@ -105,7 +105,7 @@ Git clone https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram.git
 
 在使用中有任何问题，请使用以下联系方式联系我们
 
-QQ群: 116279623
+QQ群: 69741389
 
 Gitee: https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/issues
 
