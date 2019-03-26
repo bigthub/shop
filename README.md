@@ -64,9 +64,8 @@ https://github.com/xaboy/form-create
 <a href='http://demo25.crmeb.net' target="_blank">http://demo25.crmeb.net</a>
    账号：demo
    密码：crmeb.com
-<div align="center">
-<table><tr><td><img src='https://images.gitee.com/uploads/images/2018/0828/182854_beba4aed_892944.png'/><br>公众号</td><td><img src='https://images.gitee.com/uploads/images/2018/0828/182909_cb2a5e64_892944.png'/><br>小程序</td></tr></table>
-</div>
+
+![输入图片说明](https://images.gitee.com/uploads/images/2019/0302/165543_801cf1e6_892944.jpeg "二维码.jpg")
 
 # :tw-1f1ef-1f1f5: 付费版 :tw-1f1ef-1f1f5:   详情  :tw-1f680:  [<a href='https://s.click.taobao.com/W7hVkLw' target="_blank"> 进入淘宝 </a>]
 [![输入图片说明](https://images.gitee.com/uploads/images/2019/0122/114739_a48f5bfd_892944.gif "taobao(1).gif")](https://s.click.taobao.com/W7hVkLw)
