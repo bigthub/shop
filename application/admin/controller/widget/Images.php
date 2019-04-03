@@ -25,9 +25,13 @@ class Images extends AuthController
      */
    public function index()
    {
-       $pid = input('pid') != NULL ?input('pid'):session('pid');
-       if($pid != NULL)session('pid',$pid);
-       if(!empty(session('pid')))$pid = session('pid');
+       $pid = 0;
+       if(input('pid') && is_numeric(input('pid'))){
+           $pid = input('pid');
+           session('pid',$pid);
+       }else{
+           $pid = session('pid')?session('pid'):0;
+       }
        $this->assign('pid',$pid);
        //分类标题
        $typearray = Category::getAll();
@@ -44,7 +48,6 @@ class Images extends AuthController
     public function upload()
     {
         $pid = input('pid')!= NULL ?input('pid'):session('pid');
-
         $res = Upload::image('file','attach'.DS.date('Y').DS.date('m').DS.date('d'));
         $thumbPath = Upload::thumb($res->dir);
         //产品图片上传记录
@@ -62,7 +65,7 @@ class Images extends AuthController
 //            "type" => $fileInfo['type'],
 //            "state" => "SUCCESS"
             'code' =>200,
-            'msg'  =>'SUCCESS',
+            'msg'  =>'上传成功',
             'src'  =>$res->dir
         );
         echo json_encode($info);

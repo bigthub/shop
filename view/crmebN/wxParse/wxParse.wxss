@@ -11,7 +11,7 @@
  */
 
 .wxParse{
-    margin: 0 5rpx;
+    margin: 0 5px;
     font-family: Helvetica,sans-serif;
     font-size: 28rpx;
     color: #666;
@@ -19,7 +19,7 @@
 }
 view{
     word-break:break-all;
-    margin-bottom: -8rpx;
+    margin-bottom: -5rpx;
 }
 .wxParse-inline{
     display: inline;
@@ -97,6 +97,7 @@ view{
 .wxParse-img{
     /*background-color: #efefef;*/
     overflow: hidden;
+    margin-top:-6rpx;
 }
 
 .wxParse-blockquote {

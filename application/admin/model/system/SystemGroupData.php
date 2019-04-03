@@ -49,6 +49,11 @@ class SystemGroupData extends ModelBasic
         });
     }
 
+    /**获得组合数据信息+组合数据列表
+     * @param $config_name
+     * @param int $limit
+     * @return array|bool|false|\PDOStatement|string|\think\Model
+     */
     public static function getGroupData($config_name,$limit = 0)
     {
         $group = SystemGroup::where('config_name',$config_name)->field('name,info,config_name')->find();
@@ -70,12 +75,14 @@ class SystemGroupData extends ModelBasic
         $data = [];
         $result = $model->select();
         if(!$result) return $data;
+        $result = $result->toArray();
         foreach ($result as $key => $value) {
             $data[$key]["id"] = $value["id"];
             $fields = json_decode($value["value"],true);
             foreach ($fields as $index => $field) {
-//                $data[$key][$index] = $field['type'] == 'upload' ? (isset($field["value"][0]) ? $field["value"][0]: ''):$field["value"];
-                $data[$key][$index] = $field["value"];
+                if($field['type'] === 'radio') {
+                    $data[$key][$index] = self::getGroupRadioValue($value['gid'],$field["value"]);
+                }else $data[$key][$index] = $field["value"];
             }
         }
         return $data;
@@ -106,8 +113,32 @@ class SystemGroupData extends ModelBasic
         $data["id"] = $value["id"];
         $fields = json_decode($value["value"],true);
         foreach ($fields as $index => $field) {
-            $data[$index] = $field["value"];
+            if($field['type'] === 'radio') {
+                $data[$index] = self::getGroupRadioValue($value['gid'],$field["value"]);
+            }else $data[$index] = $field["value"];
         }
         return $data;
+    }
+
+    /**
+     * TODO radio 根据值获取参数
+     * @param $id
+     * @param $value
+     * @return mixed
+     */
+    public static function getGroupRadioValue($id,$value){
+        $groupData = SystemGroup::getField($id);
+        foreach ($groupData['fields'] as $key=>&$item){
+           if($item['type'] == 'radio'){
+               $params = explode("\n",$item["param"]);
+               if(is_array($params) && !empty($params)){
+                   foreach ($params as $index => &$v) {
+                       $vl = explode('=>',$v);
+                       if(isset($vl[0]) && isset($vl[1]) && count($vl) && $vl[1] === $value) return $vl[0];
+                   }
+               }
+           }
+        }
+        return $value;
     }
 }

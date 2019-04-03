@@ -15,6 +15,7 @@ Page({
     cartInfo : [],
     cartId : '',
     priceGroup :[],
+    totalPrice:0,
     orderKey:'',
     seckillId:0,
     BargainId:0,
@@ -27,12 +28,14 @@ Page({
     url: app.globalData.urlImages,
     addressId:0,
     couponId:0,
-    couponPrice:'',
+    couponPrice:0,
     couponInfo:[],
     addressInfo:[],
     mark:'',
     payType:'weixin',
-    useIntegral:''
+    useIntegral:false,
+    useInegealOrder:0,
+    statusIntegral: false,
   },
   /**
    * 生命周期函数--监听页面加载
@@ -70,6 +73,54 @@ Page({
     } 
     that.getaddressInfo();
     that.getCouponRope();
+   
+  },
+  //使用积分
+  checkboxChange: function () {
+    var that = this;
+    that.setData({ 
+      statusIntegral: !that.data.statusIntegral,//更改是否勾选积分
+      useIntegral: !that.data.useIntegral //是否使用积分
+    });
+    //用户所有计算积分抵扣金额
+    var integralCountPrice = (Number(that.data.userInfo.integral) * Number(that.data.integralRatio)).toFixed(2);
+    console.log(that.data.userInfo.integral);
+    console.log(integralCountPrice);
+    //如果积分抵扣金额能大于订单总金额
+    if (Number(integralCountPrice) >= Number(that.data.totalPrice) && that.data.statusIntegral) {
+      var iCountPrice = Number(that.data.totalPrice);/* priceGroup. */
+      var useinegeal = (Number(that.data.totalPrice) / Number(that.data.integralRatio)).toFixed(2);
+    }else{
+        //实际抵扣的积分金额
+      if (that.data.useInegealOrder > 0){
+        var iCountPrice = (Number(that.data.useInegealOrder) * Number(that.data.integralRatio)).toFixed(2);
+        var useinegeal = that.data.useInegealOrder;
+      }else{
+        var iCountPrice = (Number(that.data.userInfo.integral) * Number(that.data.integralRatio)).toFixed(2);
+        var useinegeal = Number(that.data.userInfo.integral);
+      }  
+    }
+    //如果使用积分
+    console.log(useinegeal);
+    console.log(that.data.useInegealOrder);
+    console.log(that.data.totalPrice);
+    console.log(iCountPrice);
+    var totalPrice = 0;
+    if ((Number(that.data.totalPrice) - Number(iCountPrice)).toFixed(2) > 0) totalPrice = (Number(that.data.totalPrice) - Number(iCountPrice)).toFixed(2);
+    if (that.data.statusIntegral) {
+          that.setData({
+            priceIntegral: '-' + useinegeal,
+            totalPrice: totalPrice,
+            useInegealOrder: useinegeal
+          });
+      console.log(that.data.totalPrice);
+    } else {
+      console.log(that.data.totalPrice);
+          that.setData({
+            priceIntegral: '',
+            totalPrice: Number(Number(that.data.totalPrice) + Number(iCountPrice)).toFixed(2)
+          });
+    } 
   },
   bindHideKeyboard:function(e){
      this.setData({
@@ -84,7 +135,7 @@ Page({
   subOrder:function(e){
     var that = this;
     var header = {
-      'content-type': 'application/x-www-form-urlencoded',
+      'content-type': 'application/json',
     };
     if (that.data.payType == ''){
       wx.showToast({
@@ -164,7 +215,7 @@ Page({
           } else if (res.data.code == 200 && res.data.data.status == 'WECHAT_PAY'){
             var jsConfig = res.data.data.result.jsConfig;
             wx.requestPayment({
-              timeStamp: jsConfig.timeStamp,
+              timeStamp: jsConfig.timestamp,
               nonceStr: jsConfig.nonceStr,
               package: jsConfig.package,
               signType: jsConfig.signType,
@@ -183,7 +234,7 @@ Page({
               },
               fail: function(res) {
                 wx.showToast({
-                  title: '支付失败',
+                  title: '支付取消',
                   icon: 'none',
                   duration: 1000,
                 })
@@ -219,6 +270,7 @@ Page({
       })  
     }
   },
+  //使用优惠券
   getCouponRope:function(){
       var that = this;
       if (that.data.couponId){
@@ -230,9 +282,15 @@ Page({
           },
           success: function (res) {
             if (res.data.code == 200) {
+              //原价
+              var totalPrice = that.data.totalPrice;
+              if (Number(res.data.data.coupon_price) > 0){
+                totalPrice = Number(that.data.totalPrice) - Number(res.data.data.coupon_price);
+              }
+                totalPrice = totalPrice > 0 ? totalPrice : 0;
               that.setData({
                 couponInfo: res.data.data,
-                couponPrice: '-' + res.data.data.coupon_price
+                totalPrice: totalPrice
               })
             }else{
               that.setData({
@@ -263,7 +321,7 @@ Page({
         })
       }else{
         wx.request({
-          url: app.globalData.url + '/routine/auth_api/user_default_address?uid=' + app.globalData.uid,
+          url: app.globalData.url + '/routine/auth_api/user_default_address?uid=' + app.globalData.uid+ '&openid=' + app.globalData.openid,
           method: 'GET',
           success: function (res) {
             if (res.data.code == 200) {
@@ -282,7 +340,7 @@ Page({
       'content-type': 'application/x-www-form-urlencoded'
     };
     wx.request({
-      url: app.globalData.url + '/routine/auth_api/user_address_list?uid=' + app.globalData.uid,
+      url: app.globalData.url + '/routine/auth_api/user_address_list?uid=' + app.globalData.uid + '&openid=' + app.globalData.openid,
       method: 'POST',
       header: header,
       success: function (res) {
@@ -332,6 +390,7 @@ Page({
             offlinePostage: res.data.data.offlinePostage,
             orderKey: res.data.data.orderKey, 
             priceGroup: res.data.data.priceGroup,
+            totalPrice: res.data.data.priceGroup.totalPrice,
             cartId: res.data.data.cartId,
             seckillId: res.data.data.seckill_id,
             usableCoupon: res.data.data.usableCoupon
@@ -354,9 +413,9 @@ Page({
       BargainId: BargainId,
       combinationId:combinationId
     })
-    console.log(that.data.BargainId);
-    console.log(that.data.seckillId);
-    console.log(that.data.combinationId);
+    // console.log(that.data.BargainId);
+    // console.log(that.data.seckillId);
+    // console.log(that.data.combinationId);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

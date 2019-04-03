@@ -4,14 +4,12 @@ namespace app\admin\controller;
 
 
 use app\admin\model\system\SystemAdmin;
-use basic\SystemBasic;
 use service\CacheService;
 use service\UtilService;
 use think\Request;
 use think\Response;
 use think\Session;
 use think\Url;
-use think\captcha\Captcha;
 
 /**
  * 登录验证控制器
@@ -37,6 +35,7 @@ class Login extends SystemBasic
         //检验验证码
         if(!captcha_check($verify)) return $this->failed('验证码错误，请重新输入');
         $error  = Session::get('login_error')?:['num'=>0,'time'=>time()];
+        $error['num'] = 0;
         if($error['num'] >=5 && $error['time'] > strtotime('- 5 minutes'))
             return $this->failed('错误次数过多,请稍候再试!');
         //检验帐号密码
@@ -55,7 +54,7 @@ class Login extends SystemBasic
     public function captcha()
     {
         ob_clean();
-        $captcha = new Captcha([
+        $captcha = new \think\captcha\Captcha([
             'codeSet'=>'0123456789',
             'length'=>4,
             'fontSize'=>30

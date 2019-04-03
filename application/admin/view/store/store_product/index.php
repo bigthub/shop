@@ -71,7 +71,7 @@
                     <div class="layui-btn-container">
                         {switch name='type'}
                             {case value="1"}
-                                <button class="layui-btn layui-btn-sm" onclick="$eb.createModalFrame(this.innerText,'{:Url('create')}',{h:760,w:1100})">添加产品</button>
+                                <button class="layui-btn layui-btn-sm" onclick="$eb.createModalFrame(this.innerText,'{:Url('create')}',{h:700,w:1100})">添加产品</button>
                             {/case}
                             {case value="2"}
                                 <button class="layui-btn layui-btn-sm" data-type="show">批量上架</button>
@@ -107,17 +107,17 @@
                     </script>
                     <!--操作-->
                     <script type="text/html" id="act">
-                        <button type="button" class="layui-btn layui-btn-xs btn-success" onclick="$eb.createModalFrame('{{d.store_name}}-属性','{:Url('attr')}?id={{d.id}}',{h:700,w:800})">
+                        <button type="button" class="layui-btn layui-btn-xs btn-success" onclick="$eb.createModalFrame('{{d.store_name}}-属性','{:Url('attr')}?id={{d.id}}',{h:600,w:800})">
                             属性
                         </button>
-                        <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" onclick="$eb.createModalFrame('{{d.store_name}}-编辑','{:Url('edit')}?id={{d.id}}',{h:760,w:1100})">
+                        <button type="button" class="layui-btn layui-btn-xs layui-btn-normal" onclick="$eb.createModalFrame('{{d.store_name}}-编辑','{:Url('edit')}?id={{d.id}}',{h:700,w:1100})">
                             编辑
                         </button>
                         <button type="button" class="layui-btn layui-btn-xs" onclick="dropdown(this)">操作 <span class="caret"></span></button>
                         <ul class="layui-nav-child layui-anim layui-anim-upbit">
                             <li>
                                 <a href="javascript:void(0);" class="" onclick="$eb.createModalFrame(this.innerText,'{:Url('edit_content')}?id={{d.id}}')">
-                                    <i class="fa fa-pencil"></i> 编辑内容</a>
+                                    <i class="fa fa-pencil"></i> 产品详情</a>
                             </li>
                             <li>
                                 <a href="javascript:void(0);" onclick="$eb.createModalFrame(this.innerText,'{:Url('ump.store_seckill/seckill')}?id={{d.id}}')"">
@@ -131,11 +131,19 @@
                                 <a href="javascript:void(0);" onclick="$eb.createModalFrame(this.innerText,'{:Url('ump.store_combination/combination')}?id={{d.id}}')">
                                     <i class="fa fa-hand-lizard-o"></i> 开启拼团</a>
                             </li>
+                            {{# if(d.is_del){ }}
                             <li>
                                 <a href="javascript:void(0);" lay-event='delstor'>
-                                    <i class="fa fa-trash"></i> 删除
+                                    <i class="fa fa-trash"></i> 恢复产品
                                 </a>
                             </li>
+                            {{# }else{ }}
+                            <li>
+                                <a href="javascript:void(0);" lay-event='delstor'>
+                                    <i class="fa fa-trash"></i> 移到回收站
+                                </a>
+                            </li>
+                            {{# } }}
                             <li>
                                 <a href="{:Url('store.storeProductReply/index')}?product_id={{d.id}}">
                                     <i class="fa fa-warning"></i> 评论查看
@@ -175,15 +183,15 @@
             case 2:
                 join=[
                     {type:'checkbox'},
-                    {field: 'id', title: 'ID', sort: true,event:'id',width:'5%'},
-                    {field: 'image', title: '产品图片',templet:'#image'},
+                    {field: 'id', title: 'ID', sort: true,event:'id',width:'6%'},
+                    {field: 'image', title: '产品图片',templet:'#image',width:'10%'},
                     {field: 'store_name', title: '产品名称',templet:'#store_name'},
-                    {field: 'price', title: '产品价格',edit:'price'},
-                    {field: 'ficti', title: '虚拟销量',edit:'ficti'},
-                    {field: 'stock', title: '库存',edit:'stock'},
-                    {field: 'sort', title: '排序',edit:'sort'},
-                    {field: 'sales', title: '销量',sort: true,event:'sales'},
-                    {field: 'status', title: '状态',templet:"#checkboxstatus"},
+                    {field: 'price', title: '价格',edit:'price',width:'8%'},
+                    {field: 'ficti', title: '虚拟销量',edit:'ficti',width:'8%'},
+                    {field: 'stock', title: '库存',edit:'stock',width:'6%'},
+                    {field: 'sort', title: '排序',edit:'sort',width:'6%'},
+                    {field: 'sales', title: '销量',sort: true,event:'sales',width:'6%'},
+                    {field: 'status', title: '状态',templet:"#checkboxstatus",width:'8%'},
                     {field: 'right', title: '操作',align:'center',toolbar:'#act',width:'14%'},
                 ];
                 break;
@@ -197,7 +205,7 @@
                     {field: 'stock', title: '库存',edit:'stock'},
                     {field: 'sort', title: '排序',edit:'sort'},
                     {field: 'sales', title: '销量',sort: true,event:'sales'},
-                    {field: 'status', title: '状态',templet:"#checkboxstatus"},
+//                    {field: 'status', title: '状态',templet:"#checkboxstatus"},
                     {field: 'right', title: '操作',align:'center',toolbar:'#act',width:'14%'},
                 ];
                 break;
@@ -279,6 +287,8 @@
         switch (event) {
             case 'delstor':
                 var url=layList.U({c:'store.store_product',a:'delete',q:{id:data.id}});
+                if(data.is_del) var code = {title:"操作提示",text:"确定恢复产品操作吗？",type:'info',confirm:'是的，恢复该产品'};
+                else var code = {title:"操作提示",text:"确定将该产品移入回收站吗？",type:'info',confirm:'是的，移入回收站'};
                 $eb.$swal('delete',function(){
                     $eb.axios.get(url).then(function(res){
                         if(res.status == 200 && res.data.code == 200) {
@@ -289,7 +299,7 @@
                     }).catch(function(err){
                         $eb.$swal('error',err);
                     });
-                })
+                },code)
                 break;
             case 'open_image':
                 $eb.openImage(data.image);

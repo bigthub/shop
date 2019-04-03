@@ -38,7 +38,8 @@ class SystemMenus extends AuthController
             ['pid',$pid]
         ],$this->request);
         $this->assign(MenusModel::getAdminPage($params));
-        $this->assign(compact('params'));
+        $addurl = Url::build('create',['cid'=>input('pid')]);
+        $this->assign(compact('params','addurl'));
         return $this->fetch();
     }
 
@@ -51,8 +52,7 @@ class SystemMenus extends AuthController
     public function create($cid = 0)
     {
         $controller = '';
-        if($cid)
-            $controller = MenusModel::where('id',$cid)->value('controller')?:'';
+        if($cid)$controller = MenusModel::where('id',$cid)->value('controller')?:'';
         $field = [
             Form::input('menu_name','按钮名称')->required('按钮名称必填'),
             Form::select('pid','父级id',$cid)->setOptions(function(){
@@ -69,7 +69,7 @@ class SystemMenus extends AuthController
             Form::input('params','参数')->placeholder('举例:a/123/b/234'),
             Form::frameInputOne('icon','图标',Url::build('admin/widget.widgets/icon',array('fodder'=>'icon')))->icon('ionic'),
             Form::number('sort','排序',0),
-            Form::radio('is_show','是否菜单',0)->options([['value'=>0,'label'=>'隐藏'],['value'=>1,'label'=>'显示(菜单只显示三级)']]),
+            Form::radio('is_show','是否菜单',0)->options([['value'=>0,'label'=>'隐藏'],['value'=>1,'label'=>'显示(菜单只显示三级)']])
         ];
         $form = Form::make_post_form('添加权限',$field,Url::build('save'),3);
         $this->assign(compact('form'));
