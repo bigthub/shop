@@ -8,6 +8,7 @@
 <link href="{__FRAME_PATH}css/plugins/footable/footable.core.css" rel="stylesheet">
 <script src="{__PLUG_PATH}sweetalert2/sweetalert2.all.min.js"></script>
 <script src="{__FRAME_PATH}js/plugins/footable/footable.all.min.js"></script>
+<script src="{__ADMIN_PATH}js/layuiList.js"></script>
 <style>
     .on-tag{background-color: #eea91e;}
     .height-auto{height: 300px;}
@@ -285,7 +286,32 @@
                                         </ul>
                                     </div>
                                 </th>
-
+                                <th class="text-center">
+                                    <div class="btn-group">
+                                        <button data-toggle="dropdown" class="btn btn-white btn-xs dropdown-toggle" style="font-weight: bold;background-color: #f5f5f6;border: solid 0;"
+                                                aria-expanded="false">是否关注公众号
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu search-item" data-name="subscribe">
+                                            <li data-value="">
+                                                <a class="save_mark" href="javascript:void(0);"  >
+                                                    全部
+                                                </a>
+                                            </li>
+                                            <li data-value="1">
+                                                <a class="save_mark" href="javascript:void(0);"  >
+                                                    关注
+                                                </a>
+                                            </li>
+                                            <li data-value="0">
+                                                <a class="save_mark" href="javascript:void(0);">
+                                                    未关注
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </th>
+                                <th class="text-center">推广二维码</th>
                                 <th class="text-center">累计提现金额</th>
                                 <th class="text-center">可提现金额</th>
                                 <th class="text-center">提现次数</th>
@@ -350,7 +376,20 @@
                                             {$vo.now_money}
                                         </button>
                                     </td>
-
+                                    <td class="text-center">
+                                        {if condition="$vo['subscribe']"}
+                                        关注
+                                        {else/}
+                                        未关注
+                                        {/if}
+                                    </td>
+                                    <td class="text-center">
+                                        {if condition="$vo['user_type'] eq 'routine'"}
+                                           暂无
+                                        {else/}
+                                           <img src="{$vo.qr_code.url}" alt="{$vo.nickname}" title="{$vo.nickname}" style="width:50px;height: 50px;cursor: pointer;" class="head_image" data-image="{$vo.qr_code.url}">
+                                        {/if}
+                                    </td>
                                     <td class="text-center">
                                         {$vo.extract_count_price}
                                     </td>
@@ -509,7 +548,8 @@
             }
         }
         var str = chk_value.join(',');
-        var url = "http://"+window.location.host+"/admin/store.store_coupon/grant/id/"+str;
+//        var url = "http://"+window.location.host+"/admin/store.store_coupon/grant/id/"+str;
+        var url = layList.U({c:'store.store_coupon',a:'grant',p:{id:str}});
         $eb.createModalFrame(this.innerText,url,{'w':800});
     })
     $('.news').on('click',function (e) {
@@ -532,7 +572,8 @@
             }
         }
         var str = chk_value.join(',');
-        var url = "http://"+window.location.host+"/admin/wechat.wechat_news_category/send_news/id/"+str;
+//        var url = "http://"+window.location.host+"/admin/wechat.wechat_news_category/send_news/id/"+str;
+        var url = layList.U({c:'wechat.wechat_news_category',a:'send_news',p:{id:str}});
         $eb.createModalFrame(this.innerText,url,{'w':800});
     })
     $('.synchro').on('click',function(){
