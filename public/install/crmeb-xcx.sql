@@ -2132,7 +2132,6 @@ INSERT INTO `eb_system_menus` VALUES (449, 176, '', '站内通知', 'admin', 'us
 INSERT INTO `eb_system_menus` VALUES (450, 371, '', '分销管理列表页', 'admin', 'agent.agentManage', 'index', '[]', 0, 0, 1);
 INSERT INTO `eb_system_menus` VALUES (451, 376, '', '小程序模版消息列表页', 'admin', 'routine.routineTemplate', 'index', '[]', 0, 0, 1);
 INSERT INTO `eb_system_menus` VALUES (453, 276, '', '附件管理展示页', 'admin', 'widget.images', 'index', '[]', 0, 0, 1);
-INSERT INTO `eb_system_menus` VALUES (456, 151, '', '会员等级', 'admin', 'user.user_level', 'index', '[]', 0, 1, 1);
 INSERT INTO `eb_system_menus` VALUES (458, 462, '', '签到天数配置', 'admin', 'setting.system_group_data', 'index', '{\"gid\":\"55\"}', 0, 1, 1);
 INSERT INTO `eb_system_menus` VALUES (459, 462, '', '订单详情动态图', 'admin', 'setting.system_group_data', 'index', '{\"gid\":\"53\"}', 0, 1, 1);
 INSERT INTO `eb_system_menus` VALUES (460, 462, '', '个人中心菜单', 'admin', 'setting.system_group_data', 'index', '{\"gid\":\"54\"}', 0, 1, 1);
