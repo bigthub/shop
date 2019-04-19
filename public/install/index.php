@@ -33,7 +33,7 @@ define('CRMEBDIR', _dir_path(substr(dirname(__FILE__), 0, -15)));//项目目录
 //echo SITEDIR;
 //exit;SITEDIR
 //数据库
-$sqlFile = 'crmeb.sql';
+$sqlFile = 'crmeb-xcx.sql';
 $configFile = 'config.php';
 if (!file_exists(SITEDIR . 'install/' . $sqlFile) || !file_exists(SITEDIR . 'install/' . $configFile)) {
     echo '缺少必要的安装文件!';
