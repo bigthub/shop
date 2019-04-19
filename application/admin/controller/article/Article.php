@@ -46,7 +46,7 @@ class Article extends AuthController
             $this->assign(compact('tree'));
         }
 
-
+        $this->assign('cid',$where['cid']);
         $this->assign('cate',ArticleCategoryModel::getTierList());
         $this->assign(ArticleModel::getAll($where));
         return $this->fetch();
