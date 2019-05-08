@@ -14,16 +14,34 @@
     </a>
 </p>
 
-## 本项目还在不断开发完善中,如有建议或问题请[在这里提出](https://gitee.com/ZhongBangKeJi/CRMEB/issues)
+### 本项目持续维护,如有建议或问题请[在这里提出](https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/issues)
 
-###  :fa-star: 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
+### 如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！
+### 公众号和小程序打通版 https://gitee.com/ZhongBangKeJi/CRMEB
+### 帮助文档：https://www.kancloud.cn/crmeb/crmeb/662420
+### 如有建议或问题请官方论坛反馈，论坛地址:http://bbs.crmeb.net
+## CRMEB推荐服务器配置
+入门级配置
+```
+CPU：1核
+内存：1G
+实例规格：突发性能t5实例
+带宽：1M
+系统：CentOS 7.4 64位(推荐)
+价格：366元/年 933.3 元/三年
+```
+<a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=dligum2z">查看服务器详情</a>
 
-###  :tw-1f198: [帮助文档](https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram/wikis)
-
-###  :tw-1f234: 公众号和小程序打通版 https://gitee.com/ZhongBangKeJi/CRMEB
-
-###   :tw-26a1:  小程序版 https://gitee.com/ZhongBangKeJi/CRMEB_WeChatMiniProgram
-
+标准级配置
+```
+CPU：2核
+内存：4G
+实例规格：突发性能t5实例
+带宽：2M
+系统：CentOS 7.4 64位(推荐)
+价格：936元/年 2386.8 元/三年
+```
+<a href="https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=dligum2z">查看服务器详情</a>
 
 ##  :couple_with_heart: 小程序页面展示
 <table>
