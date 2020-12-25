@@ -1,7 +1,87 @@
-CRMEB v4.x
+<p align="center">
+    <img src="https://images.gitee.com/uploads/images/2018/1214/151026_2299df23_892944.gif" />
+</p>
+<h1 align="center"> CRMEB客户管理+电商营销系统v4开源版</h1> 
+<p align="center">
+    <a href="http://www.crmeb.com">
+        <img src="https://img.shields.io/badge/OfficialWebsite-CRMEB-yellow.svg" />
+    </a>
+<a href="http://www.crmeb.com">
+        <img src="https://img.shields.io/badge/Licence-GPL3.0-green.svg?style=flat" />
+    </a>
+    <a href="http://www.crmeb.com">
+        <img src="https://img.shields.io/badge/Edition-3.1-blue.svg" />
+    </a>
+     <a href="https://gitee.com/ZhongBangKeJi/CRMEB/repository/archive/master.zip">
+        <img src="https://img.shields.io/badge/download-80m-red.svg" />
+    </a>
+    </p>
+<p align="center">    
+    <b>如果对您有帮助，您可以点右上角 "Star" 支持一下 谢谢！</b>
+</p>
+
 ===============
 
-> 运行环境要求PHP7.1+。
+运行环境
+
+> PHP 7.1 ~ 7.3  (7.4以上的版本暂不兼容)
+
+>  PDO PHP Extension 
+
+> MBstring PHP Extension 
+
+> CURL PHP Extension 
+
+>  Mylsqi PHP Extension
+
+
+## 项目介绍
+
+   CRMEB系统就是集客户关系管理+营销电商系统，能够快速积累客户、会员数据分析、智能转化客户、有效提高销售、会员维护、网络营销的一款企业应用，包含商城、拼团、砍价、秒杀、优惠券、积分、分销等功能。
+
+   系统采用Uniapp+iView+TP6+Vue+Mysql核心技术，系统功能介绍[<a href="http://help.crmeb.net/crmeb-v4/1863404">查看</a>]，十几个开发交流群，专业售后技术团队，让您二开无忧。
+   更有着详细文档地址：http://help.crmeb.net/crmeb-v4/
+
+## QQ群
+
+会员群全部加满，请加客服微信，会员专属微信群
+
+CRMEB会员群（156535570）已满
+
+CRMEB会员2群（68808391）已满
+
+CRMEB会员5群（609480511）已满
+
+CRMEB会员8群（1030955182）已满
+
+CRMEB会员9群（633569634）已满
+
+CRMEB微信开发群（116279623）2000人已满 
+
+CRMEB微信开发3群（69741389）2000人已满
+
+CRMEB微信开发4群（710729856）2000人已满
+
+CRMEB微信开发6群（341864990）2000人已满
+
+CRMEB微信开发10群（862316758）3000人群可加
+
+## 导航栏目
+
+ | [使用手册](https://help.crmeb.net)
+ | [安装说明](/readme/安装说明.md)
+ | [论坛地址](http://bbs.crmeb.net)
+ | [官网地址](https://www.crmeb.com)
+ | [TP6开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
+ | [服务器](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=dligum2z)
+ | [授权价格](http://crmeb.com/web/index/price.html)
+
+
+##  系统演示
+
+![前端演示](https://images.gitee.com/uploads/images/2020/1103/161837_52d08017_1491977.png "屏幕截图.png")
+
+V4演示站： http://demo.crmeb.net/admin  账号：demo  密码：crmeb.com
 
 ## 主要特性
 
@@ -30,12 +110,15 @@ PHPExcel数据导出,导出表格更加美观可视；
 ### 一件安装
 自动检查系统环境一键安装
 
+
+
 ## 安装
 
 ## 一键安装
 上传你的代码，站点入口目录设置/public
-在浏览器中输入你的域名或IP（例如：www.yourdomain.com）,
-安装程序会自动执行安装。期间系统会提醒你输入数据库信息以完成安装，安装完成后建议删除install目录下index.php文件或将其改名。
+在浏览器中输入你的域名或IP（例如：www.crmeb.com）,
+安装程序会自动执行安装。
+期间系统会提醒你输入数据库信息以完成安装，安装完成后建议删除install目录下index.php文件或将其改名。
 
 后台访问地址：
 1.域名/admin
@@ -129,6 +212,9 @@ php think workerman start admin
 [使用手册](https://help.crmeb.net)
 [TP6开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
 
+## 联系我们
+![有问题？联系CRMEB官方客服](https://images.gitee.com/uploads/images/2020/1128/154416_441805ca_1491977.png "屏幕截图.png")
+
 
 ## 参与开发
 
@@ -139,7 +225,7 @@ php think workerman start admin
 
 本项目包含的第三方源码和二进制文件之版权信息另行标注。
 
-版权所有Copyright © 2017-2019 by CRMEB (http://www.crmeb.com)
+版权所有Copyright © 2017-2021 by CRMEB (http://www.crmeb.com)
 
 All rights reserved。
 
