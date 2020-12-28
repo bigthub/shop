@@ -695,7 +695,7 @@
             box-sizing: border-box;
             .trees
                 width: 100%;
-                max-height: 374px;
+                height: 374px;
         .scollhide::-webkit-scrollbar
             display: none;
     .treeSel >>>.ivu-select-dropdown-list
