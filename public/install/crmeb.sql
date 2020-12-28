@@ -1545,7 +1545,7 @@ CREATE TABLE IF NOT EXISTS `eb_system_admin`  (
 -- 转存表数据 `eb_system_admin`
 --
 
-INSERT INTO `eb_system_admin` VALUES (1, 'admin', '', '$2y$10$lNIMnpqbBOzGgeT6mGV3hO88UAbmJ.i28j37bEXY6dW7CRtoSxT1W', 'admin', '1', '127.0.0.1', 1608876627, 0, 2549, 0, 1, 0);
+INSERT INTO `eb_system_admin` VALUES (1, 'admin', '', '$2y$10$g91gZCGN6/t6Ak/dCzyj7eeU2W.oUTgclh4u2ObnroXHX8K.X5F0q', 'admin', '1', '127.0.0.1', 1608876627, 0, 2549, 0, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -6686,7 +6686,7 @@ CREATE TABLE IF NOT EXISTS `eb_wechat_key`  (
   `reply_id` mediumint(8) NOT NULL COMMENT '回复内容id',
   `keys` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '关键词',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信回复关键词辅助表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信回复关键词辅助表' ROW_FORMAT = DYNAMIC;
 
 -- --------------------------------------------------------
 
