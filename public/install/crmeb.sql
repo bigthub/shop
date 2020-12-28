@@ -6686,7 +6686,7 @@ CREATE TABLE IF NOT EXISTS `eb_wechat_key`  (
   `reply_id` mediumint(8) NOT NULL COMMENT '回复内容id',
   `keys` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '关键词',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信回复关键词辅助表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '微信回复关键词辅助表' ROW_FORMAT = DYNAMIC;
 
 -- --------------------------------------------------------
 
