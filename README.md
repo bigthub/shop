@@ -7,13 +7,13 @@
         <img src="https://img.shields.io/badge/OfficialWebsite-CRMEB-yellow.svg" />
     </a>
 <a href="http://www.crmeb.com">
-        <img src="https://img.shields.io/badge/Licence-GPL3.0-green.svg?style=flat" />
+        <img src="https://img.shields.io/badge/Licence-LGPL3.0-green.svg?style=flat" />
     </a>
     <a href="http://www.crmeb.com">
-        <img src="https://img.shields.io/badge/Edition-3.1-blue.svg" />
+        <img src="https://img.shields.io/badge/Edition-4.0-blue.svg" />
     </a>
      <a href="https://gitee.com/ZhongBangKeJi/CRMEB/repository/archive/master.zip">
-        <img src="https://img.shields.io/badge/download-80m-red.svg" />
+        <img src="https://img.shields.io/badge/download-180m-red.svg" />
     </a>
     </p>
 <p align="center">    
