@@ -1545,7 +1545,7 @@ CREATE TABLE IF NOT EXISTS `eb_system_admin`  (
 -- 转存表数据 `eb_system_admin`
 --
 
-INSERT INTO `eb_system_admin` VALUES (1, 'admin', '', '$2y$10$lNIMnpqbBOzGgeT6mGV3hO88UAbmJ.i28j37bEXY6dW7CRtoSxT1W', 'admin', '1', '127.0.0.1', 1608876627, 0, 2549, 0, 1, 0);
+INSERT INTO `eb_system_admin` VALUES (1, 'admin', '', '$2y$10$g91gZCGN6/t6Ak/dCzyj7eeU2W.oUTgclh4u2ObnroXHX8K.X5F0q', 'admin', '1', '127.0.0.1', 1608876627, 0, 2549, 0, 1, 0);
 
 -- --------------------------------------------------------
 
