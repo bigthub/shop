@@ -67,12 +67,6 @@
                     <td>1.0</td>
                 </tr>
                 <tr>
-                    <td>swoole_loader</td>
-                    <td>必须开启</td>
-                    <td><?php echo $swoole; ?></td>
-                    <td>启用</td>
-                </tr>
-                <tr>
                     <td>redis</td>
                     <td>必须开启</td>
                     <td><?php echo $redis; ?></td>

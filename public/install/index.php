@@ -103,13 +103,6 @@ switch ($step) {
             $err++;
         }
 
-        if (extension_loaded('swoole_loader')) {
-            $swoole = '<span class="correct_span">&radic;</span> 已安装';
-        } else {
-            $swoole = '<a href="/install/swoole-compiler-loader.php" target="_blank"><span class="correct_span error_span">&radic;</span> 点击查看帮助</a>';
-            $err++;
-        }
-
         if (function_exists('mysqli_connect')) {
             $mysql = '<span class="correct_span">&radic;</span> 已安装';
         } else {
