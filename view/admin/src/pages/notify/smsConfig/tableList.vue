@@ -52,8 +52,12 @@
                 <!--开通按钮-->
                 <div v-if="(isChecked === '1' && !isSms) || ( isChecked === '3' && !isDump) || (isChecked === '4' && !isCopy)" class="wuBox acea-row row-column-around row-middle">
                     <div class="wuTu"><img src="../../../assets/images/wutu.png"></div>
-                    <span class="wuSp1">短信服务未开通哦</span>
-                    <span class="wuSp2">点击立即开通按钮，即可使用短信服务哦～～～</span>
+                    <span class="wuSp1" v-if="isChecked === '1'">短信服务未开通哦</span>
+                    <span class="wuSp2" v-if="isChecked === '1'">点击立即开通按钮，即可使用短信服务哦～～～</span>
+                    <span class="wuSp1" v-if="isChecked === '4'">商品采集服务未开通哦</span>
+                    <span class="wuSp2" v-if="isChecked === '4'">点击立即开通按钮，即可使用商品采集服务哦～～～</span>
+                    <span class="wuSp1" v-if="isChecked === '3'">物流查询未开通哦</span>
+                    <span class="wuSp2" v-if="isChecked === '3'">点击立即开通按钮，即可使用物流查询服务哦～～～</span>
                     <Button size="default" type="primary" @click="onOpen">立即开通</Button>
                 </div>
                 <!--短信立即开通-->
@@ -453,14 +457,23 @@
                 this.getList();
             },
             handleSubmitDump () {
-                this.isDump = true;
-                serveOpnExpressApi(this.formInlineDump).then(async res => {
-                    this.$Message.success('开通成功!');
-                    this.getRecordList();
-                    this.$emit('openService', 'query')
-                }).catch(res => {
-                    this.$Message.error(res.msg);
-                })
+                this.$Modal.confirm({
+                    title: '开通物流查询吗',
+                    content: '<p>确定要开通物流查询吗</p>',
+                    loading: true,
+                    onOk: () => {
+                        this.$Modal.remove();
+                        this.isDump = true;
+                        serveOpnExpressApi(this.formInlineDump).then(async res => {
+                            this.$Message.success('开通成功!');
+                            this.getRecordList();
+                            this.$emit('openService', 'query')
+                        }).catch(res => {
+                            this.$Message.error(res.msg);
+                        })
+                    },
+                    onCancel: () => {}
+                });
             }
         }
     }

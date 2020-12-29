@@ -1,2 +1,8 @@
 # Windows thumbnail cache files
 /.idea
+runtime/
+public/install/install.lock
+.constant
+.env
+public/.htaccess
+public/uploads/

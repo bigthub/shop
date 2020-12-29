@@ -43,8 +43,8 @@
                                 <Icon type="ios-images" size="60" color="#dbdbdb"/>
                                 <span class="imagesNo_sp">图片库为空</span>
                             </div>
-                            <div class="acea-row">
-                                <div class="pictrueList_pic mr10 mb10" v-for="(item, index) in pictrueList" :key="index">
+                            <div class="acea-row mb10">
+                                <div class="pictrueList_pic mr10 mb10" v-for="(item, index) in pictrueList" :key="index" @mouseenter="enterMouse(item)" @mouseleave="enterMouse(item)">
                                     <p class="number" v-if="item.num>0">
                                         <Badge :count="item.num" type="error" :offset=[11,12]>
                                             <a href="#" class="demo-badge"></a>
@@ -53,10 +53,11 @@
                                     <img :class="item.isSelect ? 'on': '' " v-lazy="item.satt_dir"
                                          @click.stop="changImage(item, index, pictrueList)"/>
                                     <div style="display: flex;align-items: center;justify-content: space-between" @mouseenter="enterLeave(item)" @mouseleave="enterLeave(item)">
-                                        <p style="width: 80%" v-if="!item.isEdit">{{item.real_name}}</p>
+                                        <p style="width: 80%" v-if="!item.isEdit">{{item.editName}}</p>
                                         <Input size="small" style="width: 80%" type="text" v-model="item.real_name" v-else @on-blur="bindTxt(item)"/>
                                         <span class="iconfont iconbianji1" @click="item.isEdit = !item.isEdit" v-if="item.isShowEdit"></span>
                                     </div>
+                                    <div class="nameStyle" v-show="item.realName&&item.real_name">{{item.real_name}}</div>
                                 </div>
                             </div>
                             <!--<Col class="mb20" v-bind="gridPic"-->
@@ -68,7 +69,7 @@
                             <!--</Col>-->
                         </Row>
                     </div>
-                    <div class="footer acea-row row-between-wrapper">
+                    <div class="footer acea-row row-right">
                         <Page :total="total" show-elevator show-total @on-change="pageChange"
                               :page-size="fileData.limit"/>
                     </div>
@@ -123,7 +124,7 @@
                 fileData: {
                     pid: 0,
                     page: 1,
-                    limit: 12
+                    limit: 18
                 },
                 total: 0,
                 pids: 0,
@@ -140,6 +141,9 @@
             this.getFileList();
         },
         methods: {
+            enterMouse (item) {
+                item.realName = !item.realName;
+            },
             enterLeave (item) {
                 item.isShowEdit = !item.isShowEdit;
             },
@@ -191,7 +195,7 @@
                     on: {
                         mouseenter: () => { this.onMouseOver(root, node, data) },
                         mouseleave: () => { this.onMouseOver(root, node, data) }
-                     }
+                    }
                 }, [
                     h('span',{
                         on: {
@@ -478,8 +482,9 @@
                         el.isSelect = false
                         el.isEdit = false
                         el.isShowEdit = false
+                        el.realName = false
                         el.num = 0;
-                        el.real_name = el.real_name.substr(0,2)+'...'+el.real_name.substr(-5,5);
+                        this.editName(el);
                     })
                     this.pictrueList = res.data.list;
 
@@ -571,20 +576,25 @@
                     console.log(this.checkPicList)
                 }
             },
-
+            editName(item){
+                let it = item.real_name.split(".");
+                let it1 = it[1]==undefined?[]:it[1];
+                let len = it[0].length + it1.length;
+                item.editName = len<10?item.real_name:item.real_name.substr(0,2)+'...'+item.real_name.substr(-5,5);
+            },
             // 修改图片文字上传
             bindTxt(item){
                 if(item.real_name == ''){
                     this.$Message.error('请填写内容')
                 }
-                console.log(item,'ee')
                 fileUpdateApi(item.att_id,{
                     real_name:item.real_name
                 }).then(res=>{
+                    this.editName(item);
                     item.isEdit = false
                     this.$Message.success(res.msg)
                 }).catch(error=>{
-                    this.$Message.error(res.msg)
+                    this.$Message.error(error.msg)
                 })
             }
         }
@@ -592,6 +602,19 @@
 </script>
 
 <style scoped lang="stylus">
+    .nameStyle{
+        position: absolute;
+        white-space: nowrap;
+        z-index: 9;
+        background: #eee;
+        height: 20px;
+        line-height: 20px;
+        color #555;
+        border: 1px solid #ebebeb;
+        padding 0 5px;
+        left: 56px;
+        bottom -18px;
+    }
     .iconbianji1{
         font-size 13px;
     }
@@ -618,8 +641,8 @@
         color rgba(0,0,0,0.4)!important;
     }
     /deep/.ivu-tree-arrow i
-        vertical-align bottom
-    /deep/.ivu-icon-ios-arrow-forward:before {
+    vertical-align bottom
+    .Nav /deep/.ivu-icon-ios-arrow-forward:before {
         content: "\F341" !important;
         font-size 20px
     }
@@ -672,7 +695,7 @@
             box-sizing: border-box;
             .trees
                 width: 100%;
-                max-height: 374px;
+                height: 374px;
         .scollhide::-webkit-scrollbar
             display: none;
     .treeSel >>>.ivu-select-dropdown-list
