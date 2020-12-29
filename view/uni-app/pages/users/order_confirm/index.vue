@@ -32,6 +32,17 @@
 						<text class='iconfont icon-jiantou'></text>
 					</view>
 				</view>
+				<view class='item acea-row row-between-wrapper' v-if="!pinkId && !BargainId && !combinationId && !seckillId">
+					<view>积分抵扣</view>
+					<view class='discount acea-row row-middle'>
+						<view> {{useIntegral ? "剩余积分":"当前积分"}}
+							<text class='num font-color'>{{integral || 0}}</text>
+						</view>
+						<checkbox-group @change="ChangeIntegral">
+							<checkbox :disabled="integral<=0 && !useIntegral" :checked='useIntegral ? true : false' />
+						</checkbox-group>
+					</view>
+				</view>
 				<view v-if="invoice_func || special_invoice" class='item acea-row row-between-wrapper' @tap="goInvoice">
 					<view>开具发票</view>
 					<view class='discount'>
