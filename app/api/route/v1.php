@@ -121,6 +121,11 @@ Route::group(function () {
     Route::get('spread/count/:type', 'v1.user.UserBillController/spread_count')->name('spreadCount');//资金总数
     Route::get('integral/list', 'v1.user.UserBillController/integral_list')->name('integralList');//积分记录
 
+    //充值类
+    Route::post('recharge/recharge', 'v1.user.UserRechargeController/recharge')->name('rechargeRecharge');//统一充值
+    Route::post('recharge/routine', 'v1.user.UserRechargeController/routine')->name('rechargeRoutine');//小程序充值
+    Route::post('recharge/wechat', 'v1.user.UserRechargeController/wechat')->name('rechargeWechat');//公众号充值
+    Route::get('recharge/index', 'v1.user.UserRechargeController/index')->name('rechargeQuota');//充值余额选择
 
     //首页获取未支付订单
     Route::get('order/nopay', 'v1.order.StoreOrderController/get_noPay')->name('getNoPay');//获取未支付订单
