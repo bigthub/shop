@@ -1,0 +1,53 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "CRMEB API",
+        "version": "2.0"
+    },
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "用户登录",
+                "description": "用户登录接口",
+                "operationId": "app\\api\\controller\\v1\\LoginController::login",
+                "parameters": [
+                    {
+                        "name": "account",
+                        "in": "query",
+                        "description": "用户帐号",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pwd",
+                        "in": "query",
+                        "description": "用户密码",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "spread",
+                        "in": "query",
+                        "description": "验证码",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        }
+    }
+}

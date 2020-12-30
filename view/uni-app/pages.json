@@ -210,6 +210,12 @@
 					}
 				},
 				{
+					"path": "user_payment/index",
+					"style": {
+						"navigationBarTitleText": "余额充值"
+					}
+				},
+				{
 					"path": "user_pwd_edit/index",
 					"style": {
 						"navigationBarTitleText": "修改密码",
