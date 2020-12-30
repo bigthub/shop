@@ -104,6 +104,31 @@ CREATE TABLE IF NOT EXISTS `eb_category`  (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `eb_user_recharge`
+--
+
+CREATE TABLE IF NOT EXISTS `eb_user_recharge` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `uid` int(10) DEFAULT NULL COMMENT '充值用户UID',
+  `order_id` varchar(32) DEFAULT NULL COMMENT '订单号',
+  `price` decimal(8,2) DEFAULT NULL COMMENT '充值金额',
+  `give_price` decimal(8,2) NOT NULL DEFAULT '0.00' COMMENT '购买赠送金额',
+  `recharge_type` varchar(32) DEFAULT NULL COMMENT '充值类型',
+  `paid` tinyint(1) DEFAULT NULL COMMENT '是否充值',
+  `pay_time` int(10) DEFAULT NULL COMMENT '充值支付时间',
+  `add_time` int(12) DEFAULT NULL COMMENT '充值时间',
+  `refund_price` decimal(10,2) DEFAULT '0.00' COMMENT '退款金额',
+  `channel_type` varchar(255) NOT NULL DEFAULT '' COMMENT '用户访问端标识',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `order_id` (`order_id`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE,
+  KEY `recharge_type` (`recharge_type`) USING BTREE,
+  KEY `paid` (`paid`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='用户充值表';
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `eb_delivery_service`
 --
 
@@ -5627,6 +5652,7 @@ INSERT INTO `eb_system_config` VALUES
 (154, 'admin_pay_success_switch', 'radio', NULL, 20, '0=>关闭\n1=>开启', NULL, NULL, NULL, NULL, '0', '用户支付成功管理员提醒开关', '用户支付成功管理员提醒开关', 0, 1),
 (155, 'admin_refund_switch', 'radio', NULL, 20, '0=>关闭\n1=>开启', NULL, NULL, NULL, NULL, '0', '用户退款管理员提醒开关', '用户退款管理员提醒开关', 0, 1),
 (156, 'admin_confirm_take_over_switch', 'radio', NULL, 20, '0=>关闭\n1=>开启', NULL, NULL, NULL, NULL, '0', '用户确认收货管理员短信提醒', '用户确认收货管理员短信提醒', 0, 1),
+(158, 'recharge_attention', 'textarea', NULL, 28, NULL, NULL, NULL, 100, 5, '\"\\u5145\\u503c\\u540e\\u5e10\\u6237\\u7684\\u91d1\\u989d\\u4e0d\\u80fd\\u63d0\\u73b0\\uff0c\\u53ef\\u7528\\u4e8e\\u5546\\u57ce\\u6d88\\u8d39\\u4f7f\\u7528\\n\\u4f63\\u91d1\\u5bfc\\u5165\\u8d26\\u6237\\u4e4b\\u540e\\u4e0d\\u80fd\\u518d\\u6b21\\u5bfc\\u51fa\\u3001\\u4e0d\\u53ef\\u63d0\\u73b0\\n\\u8d26\\u6237\\u5145\\u503c\\u51fa\\u73b0\\u95ee\\u9898\\u53ef\\u8054\\u7cfb\\u5546\\u57ce\\u5ba2\\u670d\\uff0c\\u4e5f\\u53ef\\u62e8\\u6253\\u5546\\u57ce\\u5ba2\\u670d\\u70ed\\u7ebf\\uff1a4008888888\\n\\n\\n\"', '充值注意事项', '充值注意事项', 0, 1),
 (162, 'price_revision_switch', 'radio', 'input', 20, '0=>关闭\n1=>开启', NULL, NULL, NULL, NULL, '0', '改价短信提醒开关', '改价短信提醒开关', 0, 1),
 (164, 'wss_open', 'radio', NULL, 24, '1=>开启wss\n0=>关闭wss', NULL, NULL, NULL, NULL, 'null', '是否开启wss', '如果使用https访问必须开启wss,使用http访问关闭wss，建议使用http访问(关闭wss)兼容性更好', 0, 1),
 (165, 'wss_local_cert', 'upload', NULL, 24, NULL, 3, NULL, NULL, NULL, 'null', 'ssl证书PEM', 'ssl证书.pem格式', 0, 1),
