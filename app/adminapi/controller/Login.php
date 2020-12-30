@@ -53,6 +53,19 @@ class Login extends AuthController
      * @throws \think\db\exception\DbException
      * @throws \think\db\exception\ModelNotFoundException
      */
+    /** 
+     * @OA\Info(title="Admin API",version="2.0")
+     * @OA\Post(
+     *     path="/admin/login",
+     *     tags={"User"},
+     *     summary="管理员登录",
+     *     description="管理员登录接口",
+     *     @OA\Parameter(name="account", in="query", @OA\Schema(type="string"), required=true, description="用户帐号"),
+     *     @OA\Parameter(name="pwd", in="query", @OA\Schema(type="string"), required=true, description="用户密码"),
+     *     @OA\Parameter(name="imgcode", in="query", @OA\Schema(type="string"), required=true, description="验证码"),
+     *     @OA\Response(response="200",description="An example resource")
+     * )
+     */
     public function login()
     {
         [$account, $password, $imgcode] = app('request')->postMore([

@@ -1,0 +1,68 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Auth API",
+        "version": "2.0"
+    },
+    "paths": {
+        "/admin/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "管理员登录",
+                "description": "管理员登录接口",
+                "operationId": "app\\adminapi\\controller\\Login::login",
+                "parameters": [
+                    {
+                        "name": "account",
+                        "in": "query",
+                        "description": "用户帐号",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "pwd",
+                        "in": "query",
+                        "description": "用户密码",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "imgcode",
+                        "in": "query",
+                        "description": "验证码",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An example resource"
+                    }
+                }
+            }
+        },
+        "/admin/info": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "登录页轮播图",
+                "description": "登录页轮播图后台获取",
+                "operationId": "app\\adminapi\\controller\\Login::info",
+                "responses": {
+                    "200": {
+                        "description": "状态码"
+                    }
+                }
+            }
+        }
+    }
+}

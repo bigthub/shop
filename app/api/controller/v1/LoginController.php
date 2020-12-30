@@ -48,6 +48,19 @@ class LoginController
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
+     /** 
+     * @OA\Info(title="CRMEB API",version="2.0")
+     * @OA\Post(
+     *     path="/login",
+     *     tags={"User"},
+     *     summary="用户登录",
+     *     description="用户登录接口",
+     *     @OA\Parameter(name="account", in="query", @OA\Schema(type="string"), required=true, description="用户帐号"),
+     *     @OA\Parameter(name="pwd", in="query", @OA\Schema(type="string"), required=true, description="用户密码"),
+     *     @OA\Parameter(name="spread", in="query", @OA\Schema(type="string"), required=true, description="验证码"),
+     *     @OA\Response(response="200",description="An example resource")
+     * )
+     */
     public function login(Request $request)
     {
         [$account, $password, $spread] = $request->postMore([
