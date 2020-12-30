@@ -9,6 +9,12 @@
 								<view>总资产(元)</view>
 								<view class='money'>{{userInfo.now_money || 0}}</view>
 							</view>
+							<!-- #ifdef APP-PLUS || H5 -->
+							<navigator url="/pages/users/user_payment/index" hover-class="none" class='recharge font-color'>充值</navigator>
+							<!-- #endif -->
+							<!-- #ifdef MP -->
+							<view v-if="recharge_switch" @click="openSubscribe('/pages/users/user_payment/index')" class='recharge font-color'>充值</view>
+							<!-- #endif -->
 						</view>
 						<view class='cumulative acea-row row-top'>
 							<view class='item'>
