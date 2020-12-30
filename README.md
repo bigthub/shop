@@ -42,31 +42,26 @@
    系统采用Uniapp+iView+TP6+Vue+Mysql核心技术，系统功能介绍[<a href="http://help.crmeb.net/crmeb-v4/1863404">查看</a>]，十几个开发交流群，专业售后技术团队，让您二开无忧。
    更有着详细文档地址：http://help.crmeb.net/crmeb-v4/
 
+## 页面展示图
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162518_97b85596_892944.jpeg "页面展示_01.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162554_62736ab6_892944.jpeg "页面展示_02.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162613_8aebb26f_892944.jpeg "页面展示_03.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162640_6b82fcf4_892944.jpeg "开源版_01.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162703_5aa76d04_892944.jpeg "开源版_02.jpg")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162716_a285935c_892944.png "houtaishouye.png")
+![输入图片说明](https://images.gitee.com/uploads/images/2020/1230/162840_4f4ed1f8_892944.png "houtaiyemiansheji.png")
+
 ## QQ群
 
 会员群全部加满，请加客服微信，会员专属微信群
 
-CRMEB会员群（156535570）已满
+CRMEB会员群（156535570）已满 CRMEB会员2群（68808391）已满 CRMEB会员5群（609480511）已满
 
-CRMEB会员2群（68808391）已满
+CRMEB会员8群（1030955182）已满 CRMEB会员9群（633569634）已满 CRMEB微信开发群（116279623）2000人已满 
 
-CRMEB会员5群（609480511）已满
+CRMEB微信开发3群（69741389）2000人已满 CRMEB微信开发4群（710729856）2000人已满 CRMEB微信开发6群（341864990）2000人已满
 
-CRMEB会员8群（1030955182）已满
-
-CRMEB会员9群（633569634）已满
-
-CRMEB微信开发群（116279623）2000人已满 
-
-CRMEB微信开发3群（69741389）2000人已满
-
-CRMEB微信开发4群（710729856）2000人已满
-
-CRMEB微信开发6群（341864990）2000人已满
-
-CRMEB微信开发10群（862316758）3000人群可加
-
-CRMEB微信开发11群 (824195682) 
+CRMEB微信开发10群（862316758）3000人群可加 CRMEB微信开发11群 (824195682) 
 
 ## 导航栏目
 
@@ -76,7 +71,7 @@ CRMEB微信开发11群 (824195682)
  | [官网地址](https://www.crmeb.com)
  | [TP6开发手册](https://www.kancloud.cn/manual/thinkphp6_0/content)
  | [服务器](https://promotion.aliyun.com/ntms/yunparter/invite.html?userCode=dligum2z)
- | [授权价格](http://crmeb.com/web/index/price.html)
+ | [授权价格](http://crmeb.com/)
 
 
 ##  系统演示
