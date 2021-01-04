@@ -632,9 +632,6 @@ export default {
 					setTimeout(function() {
 						that.infoScroll();
 					}, 500);
-					// #ifndef H5
-					that.downloadFilestoreImage();
-					// #endif
 					that.DefaultSelect();
 					that.getCartCount();
 				})
